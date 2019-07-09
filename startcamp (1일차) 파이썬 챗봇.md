@@ -6,13 +6,13 @@
 > 계산, 기억기능 > 문제해결 (알고리즘)
 > 프로그램 = 명령어의 집합
 
-
+<br>
 
 ## 교육과정
 
 `python, HTML, CSS, SQL, ORM, flash, Django, javascript, Vue.js, Git Amazon web services`
 
-
+<br>
 
 ## 파이썬 기본문법
 
@@ -43,7 +43,7 @@ else:
     print("")
 ```
 
-
+<br>
 
 ## 예시)
 
@@ -72,7 +72,7 @@ for i in range(6):
 print(sorted(a))
 ```
 
-
+<br>
 
 #### 전화번호 선택
 
@@ -89,7 +89,7 @@ choice = random.choice(list(phonebook.keys()))
 print(f"{choice} : {phonebook[choice]}") 
 ```
 
-
+<br>
 
 #### 웹 크롤링
 
