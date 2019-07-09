@@ -205,7 +205,7 @@ for r in tr:
 
 <br>
 
-#### **<1> gitignore.io 접속**
+### **1) gitignore.io 접속**
 
 1. `python`,  `visualstudiocode`,  `windows` 입력 후 생성
 
@@ -213,7 +213,7 @@ for r in tr:
 
 <br>
 
-#### <2> **gitbash로 올리기** (add - commit - push)
+### 2) **gitbash로 올리기** (add - commit - push)
 
 1. `$ git init` 
 
