@@ -10,7 +10,7 @@
 - `HTML & CSS`
 - `my page` 만들기
 
-
+<br>
 
 ### 파일 조작 
 
@@ -20,7 +20,7 @@
 
 > 많이 사용하지는 않을 것, 사용자 데이터는 파일보다는 DB에 저장할 것이다.
 
-
+<br>
 
 **.txt**파일 조작법을 알아보자.
 
@@ -64,9 +64,9 @@ with open("exchange.txt", 'w') as f:
         f.write(r.select_one('.tit').text.strip() + " : " + r.select_one('.sale').text + "\n")
 ```
 
-![exchange](C:\Users\student\Desktop\exchange.PNG)
+![exchange](C:\Users\student\TIL\0.StudyCamp\exchange.PNG)
 
-
+<br>
 
 **.csv** 파일로 작성해보자. (표형태)
 
@@ -116,7 +116,9 @@ with open("bithumb.csv", 'w', encoding="utf-8", newline="") as f:
         csv_writer.writerow(row)
 ```
 
-![bithumb](C:\Users\student\Desktop\bithumb.PNG)
+![bithumb](C:\Users\student\TIL\0.StudyCamp\bithumb.PNG)
+
+<br>
 
 ### HTML & CSS 
 
@@ -179,7 +181,7 @@ a {
 }
 ```
 
-
+<br>
 
 템플릿을 이용하여 `mypage`를 만들어보자.
 
@@ -188,7 +190,7 @@ a {
 
 > [mypage](https://eunji-j.github.io/index.html)
 
-
+<br>
 
 #### **참고 사이트**
 
