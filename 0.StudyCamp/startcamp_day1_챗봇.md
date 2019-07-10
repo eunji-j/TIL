@@ -1,4 +1,4 @@
-# startcamp (1일차) : 파이썬 챗봇
+# 190708_StartCamp_day1
 
 #### *4차산업혁명*
 
@@ -88,22 +88,3 @@ choice = random.choice(list(phonebook.keys()))
 #print(f"{변수})
 print(f"{choice} : {phonebook[choice]}") 
 ```
-
-<br>
-
-#### 웹 크롤링
-
-```python
-import requests
-from bs4 import BeautifulSoup
-url = "https://finance.naver.com/sise/"
-
-html = requests.get(url).text
-soup = BeautifulSoup(html, 'html.parser')
-#select('') : list형태
-#find_all('p')
-select = soup.select_one('#KOSPI_now') 
-
-print(f"코스피 지수 : {select.text}")
-```
-
