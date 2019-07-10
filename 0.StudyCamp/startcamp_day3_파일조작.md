@@ -64,8 +64,6 @@ with open("exchange.txt", 'w') as f:
         f.write(r.select_one('.tit').text.strip() + " : " + r.select_one('.sale').text + "\n")
 ```
 
-![exchange](C:\Users\student\TIL\0.StudyCamp\exchange.PNG)
-
 <br>
 
 **.csv** 파일로 작성해보자. (표형태)
@@ -116,15 +114,13 @@ with open("bithumb.csv", 'w', encoding="utf-8", newline="") as f:
         csv_writer.writerow(row)
 ```
 
-![bithumb](C:\Users\student\TIL\0.StudyCamp\bithumb.PNG)
-
 <br>
 
 ### HTML & CSS 
 
 `html&css` 폴더를 생성한다.
 
-
+<br>
 
 html 태그를 알아보자. [참고](https://www.w3schools.com/tags/default.asp)
 
