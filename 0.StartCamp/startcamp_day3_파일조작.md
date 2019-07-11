@@ -184,7 +184,7 @@ a {
 - `Bootstrap` 반응형 웹 템플릿 : [startbootstrap](https://startbootstrap.com/themes/)
 - 아이콘 지원 : [fontawesome](https://fontawesome.com/)
 
-> [mypage](https://eunji-j.github.io/index.html)
+> https://아이디.github.io/ 형식의 주소를 부여해줌
 
 <br>
 
