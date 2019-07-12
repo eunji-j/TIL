@@ -13,11 +13,9 @@
 - flask 템플릿
 - 집합 자료형(set)
 
+<br>
 
-
-
-
-#### 01.flask 사용하기
+### 01.flask 사용하기
 
 >   Django와 Flask 모두 Python 기반의 Web Framework로
 >
@@ -71,7 +69,7 @@ def dday():
 
 예시1. 다른 파일에 실행시켜보자.
 
-- **return render_template('파일명')**
+- return **render_template('파일명.html')**
 
 > templates 폴더 생성 후 `index.html`  파일 생성한다.
 
@@ -89,11 +87,11 @@ def html_file():
     # render_template('파일명.html') : 해당파일 실행
 ```
 
-예시2. 변수를 지정해보자. (동적웹)
+예시2. 변수를 사용해보자. (동적웹)
 
-- **@app.route("/greeting/< 변수타입:변수명 >")**
+- @app.route("/greeting/**< 변수타입:변수명 >**")
 
-**def 함수명(변수명):**
+  def 함수명(**변수명**):
 
 ```python
 @app.route("/greeting/<string:name>") 
@@ -105,11 +103,11 @@ def greeting(name):
 
 <br>
 
-#### 템플릿 - [참고](https://opentutorials.org/module/3669/22003)
+### 02.템플릿 - [참고](https://opentutorials.org/module/3669/22003)
 
 예시1. 템플릿에 변수 전송해보자.
 
-- **return render_template("파일명.html", 변수1=값, 변수2=값2)**
+- return render_template("파일명.html", **변수1=값1, 변수2=값2**)
 
 >  templates 폴더안에 `cube.html`  파일 생성한다.
 
@@ -147,13 +145,13 @@ jinja2 문법을 알아보자. [참고](https://snacky.tistory.com/7)
     {% else %}
         <p style="color:purple">{{name}}</p>님 안녕하세요!!!
     {% endif %}
-  	<!-- 이스케이프 적어주기 -->
+  	<!-- endif/endfor -->
 </body>
 ```
 
 <br>
 
-예시2. 이미지url 보내고 해당 파일을 열어보자.
+예시2. 이미지url 보내고 해당 파일을 열어보자. (딕셔너리)
 
 > app.py
 
@@ -167,7 +165,7 @@ def lunch():
         "스파게티":"https://www.tefal.co.kr/medias/?context=bWFzdGVyfHJvb3R8MjUyMTF8aW1hZ2UvanBlZ3xoMmYvaGRlLzkzMzg2Mzc5MTAwNDYuanBnfDQ4MzFlN2NlZjMwOTIxNmJmNDE3NjBiZjU0NzA3Mzk5ZDE2YmIzZDk4NTUyOWUzNGM4MmZiN2UwODA1YmY1MGE"
     }
     menu_list = list(menu.keys()) 
-    # ["짜장면", "짬뽕", "스파게티"] key값 다 가져옴
+    # ["짜장면", "짬뽕", "스파게티"] key값 list로 다 가져옴
     pick = random.choice(menu_list)
     img = menu[pick]
     return render_template("lunch.html", pick=pick, img=img)
@@ -185,13 +183,18 @@ def lunch():
 
 <br>
 
-예시3. 페이지 간에 값을 주고받아보자.
+예시3. 페이지 간에 값을 주고받아보자. (form 태그)
 
 > 입력한 글자 아스키 아트로 바꿔주는 사이트 (영어만) : [여기](http://artii.herokuapp.com/)
 
 > url + `/make?text=" "`
 
-- **user_input = request.args.get("매개변수")**
+- user_input = **request.args.get("매개변수")**
+
+-  <form action="url">
+       <input type="text" name="매개변수">
+       <input type="submit">
+   </form>
 
 > templates 폴더안에 `text.html`, `result.html`  파일 생성한다.
 
@@ -234,7 +237,7 @@ def result():
 </body>
 ```
 
-
+<br>
 
 예시4. 랜덤게임 만들어보자.
 
@@ -242,7 +245,7 @@ def result():
 
 `$ ./ngrok.exe http 5000`  입력후 주소를 Ctrl + 클릭하면 주소 생성된다.
 
-
+<br>
 
 ★ 예시5. 로또 번호 추첨하기
 

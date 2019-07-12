@@ -55,7 +55,6 @@ else:
 import random
 
 -1-
-lotto = [] 
 numbers = list(range(1, 46)) #리스트생성
 
 a = random.sample(numbers, 6) #비복원추출(숫자6개)
