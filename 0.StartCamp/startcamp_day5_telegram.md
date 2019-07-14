@@ -2,13 +2,10 @@
 
 [TOC]
 
-<br>
-
 ### 01. telegram 시작하기
 
 - 05.telegram_bot 폴더에 `test.py` 파일과 `app.py` 파일 생성
 - telegram에서 `botfather`과 채팅하여 botname과 botusername 입력하여 **토큰값** 받기
-- 
 
 <br>
 

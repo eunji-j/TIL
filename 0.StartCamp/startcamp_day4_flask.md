@@ -8,8 +8,6 @@
   3. `$ FLASK_APP=파일명.py flask run`  (이곳에서 flask 실행시켜줘)
 - flask 사용하기
 
-  1. 기본 사용법
-  2. 
 - flask 템플릿
 - 집합 자료형(set)
 
