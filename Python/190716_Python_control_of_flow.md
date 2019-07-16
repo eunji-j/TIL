@@ -1,6 +1,8 @@
-## 190716_Python_day2
+## 190716_Python_control_of_flow
 
-### 주요학습내용
+<br>
+
+### 01. 주요학습내용
 
 - **enumerate(iterable, start=0)**
 

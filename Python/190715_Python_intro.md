@@ -1,4 +1,4 @@
-## 190715_Python_day1
+## 190715_Python_intro
 
 #### 자리이동
 
