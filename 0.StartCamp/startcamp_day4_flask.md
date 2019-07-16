@@ -1,6 +1,6 @@
 ## 190711_StartCamp_day4
 
-**목차**
+**- 주요학습내용 -**
 
 - flask 프레임워크 설치
   1. 04.first_app 폴더에 `app.py` 파일생성 후 http://flask.pocoo.org 에서 flask is Fun 코드 붙여넣기

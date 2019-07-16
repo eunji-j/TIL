@@ -2,6 +2,16 @@
 
 [TOC]
 
+**- 주요학습내용 -**
+
+- telegram 시작하기
+- telegram 환경설정(Test)
+- telegram 챗봇 만들기
+- 네이버 API 사용하기
+- telegram 챗봇 배포하기
+
+<br>
+
 ### 01. telegram 시작하기
 
 - 05.telegram_bot 폴더에 `test.py` 파일과 `app.py` 파일 생성

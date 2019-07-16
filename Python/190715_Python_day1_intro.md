@@ -1,0 +1,132 @@
+## 190715_Python_day1
+
+#### 자리이동
+
+##### 원래 자리에서 해야할 일
+
+- 수업자료 깃헙에 올리기
+- 개인 데이터 삭제하기
+- 크롬 동기화 중지
+- window 자격증명 삭제 : 자격 증명 관리자 -> Windows 자격 증명 ->  일반 자격증명 -> 'git' 제거
+- git config 지우기 : `$ git config --global user.email ""`
+
+##### 이동한 자리에서 해야할 일
+
+- 깃헙에 올린 수업자료 clone : `$ git clone 주소붙여넣기`
+- 크롬 동기화 사용하기
+- git config 설정하기 (email, name)
+
+<br>
+
+### 01. Jupyter 설치하기
+
+>  Easy / Strong(강력) / Fast(빠름)
+
+1. jupyter 설치하기  `$ pip install jupyter`
+
+2. python, python_teacher 폴더 생성 `$ mkdir `
+
+3. jupyter 실행하기 `$ jupyter notebook`
+
+- [참고] 폰트 변경 
+
+  d2 font 설치 -> 크롬 설정: 글꼴 맞춤설정 -> 고정폭 글꼴: D2Coding
+
+- [참고] jupyter 테마 변경 
+
+   `$ pip install jupyterthemes` -> `$ jt -l` 테마 리스트 보기 -> `$ jt -t 테마이름` 변경
+
+  `$ jt -r` 테마 리셋
+
+<br>
+
+### 02. 주요학습내용
+
+- **f{today: %Y}**
+
+  ```python
+  # 다양한 형식을 활용하기 위해 datetime 모듈로 오늘을 표현해봅시다.
+  
+  import datetime
+  today = datetime.datetime.now()
+  print(today)
+  f'오늘은 {today:%Y}년 {today:%m}월 {today:%d}일 입니다.'
+  ```
+
+  ```
+  2019-07-15 13:19:45.408385
+  ```
+
+  Out[107]:
+
+  ```
+  '오늘은 2019년 07월 15일 입니다.'
+  ```
+
+  
+
+  - **f{a:.3}** 
+
+  f-string 소수 자릿수 표시하기 3자리(소수점아래 2자리)
+
+- 논리연산자 - 단축평가 (**a and b / a or b**)
+
+  ```python
+  # 파이썬에서 and는 a가 거짓이면 a를 리턴하고, 참이면 b를 리턴한다.
+  # 파이썬에서 or은 a가 참이면 a를 리턴하고, 거짓이면 b를 리턴한다.
+  
+  # and의 단축평가(short-circuit evaluation)에 대해서 알아봅시다.
+  print(3 and 0)
+  print(3 and 5)
+  print(0 and 3)
+  print(0 and 0)
+  
+  # or의 단축평가(short-circuit evaluation)에 대해서 알아봅시다.
+  print(5 or 3)
+  print(0 or 3)
+  print(3 or 0)
+  print(0 or 0)
+  1 or (3 and 5)
+  ```
+
+  ```
+  0
+  5
+  0
+  0
+  ```
+
+  ```
+  5
+  3
+  3
+  0
+  ```
+
+- 데이터 자료형 (**시퀀스 / 순서없는 자료형**)
+
+  - 순서있는 시퀀스자료형 : **'String', [list], (tuple), range()** -> list만 값 변동 가능
+
+  - 순서없는 자료형 : **{set}, {dictionary:}** -> 둘다 값 변동 가능
+
+    > set은 중복되지 않음 -> set([list]) 간편하게 중복 제거 가능
+
+- **list = [0] * 6**
+
+  list = [0,0,0,0,0,0]  간편하게 만드는 방법
+
+- **list[i:j:k]** 
+
+  k간격으로 슬라이싱
+
+- **list.count(3)**
+
+  list안의 3의 개수
+
+- **dict.keys() / dict.values()**
+
+  딕셔너리의 키값, 밸류값 확인하는 방법
+
+- **.get(' '), [' ']**
+
+  딕셔너리 밸류값 구하는 방법
