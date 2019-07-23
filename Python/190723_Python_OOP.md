@@ -95,9 +95,9 @@ RIP
 
 <br>
 
-#### 5. 응용해보기
+#### 5. 배운 것 응용해보기
 
-> 포켓몬 구현하기
+- 포켓몬 구현하기
 
 ```python
 class Pikachu(): # Pikachu 타입을 만든 것
@@ -169,3 +169,41 @@ class Pikachu(): # Pikachu 타입을 만든 것
         print(f'hp   : {self.hp}')
         print(f'exp  : {self.exp}')
 ```
+
+```python
+p1 = Pikachu('ssafy')
+p2 = Pikachu('enemy')
+p1.body_attack(p2)
+p1.info()
+p2.info()
+p1.thousond_volt(p2)
+p1.bark()
+```
+
+```
+피카츄 ssafy가 생성되었습니다.
+피카츄 ssafy가 삭제되었습니다.
+몸통박치기로 enemy의 hp가 25 차감되었습니다.
+============
+name : ssafy
+level: 5
+hp   : 100
+exp  : 0
+============
+name : enemy
+level: 5
+hp   : 75
+exp  : 0
+십만볼트로 enemy의 hp가 35 차감되었습니다.
+============
+name : ssafy
+level: 5
+hp   : 100
+exp  : 0
+============
+name : enemy
+level: 5
+hp   : 40
+exp  : 0
+```
+
