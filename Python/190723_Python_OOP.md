@@ -1,4 +1,4 @@
-## 190722_Python_OOP
+## 190723_Python_OOP
 
 <br>
 
@@ -33,7 +33,7 @@
 ```python
 # 특정 객체를 print() 할 때 보이는 값과
 # 그냥 객체 자체가 보여주는 값도 사실 모두 우리가 바꿀 수 있습니다.
-class Phone():
+class Phone:
     def __str__(self):
         return 'print문에 넣으면 얘가 실행됩니다.'
     def __repr__(self):
@@ -100,7 +100,7 @@ RIP
 - 포켓몬 구현하기
 
 ```python
-class Pikachu(): # Pikachu 타입을 만든 것
+class Pikachu: # Pikachu 타입을 만든 것
     name = ''
     level = 5
     hp = level * 20
