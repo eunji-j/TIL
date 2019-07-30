@@ -4,7 +4,7 @@
 
 > HTML: Hyper Text Markup Language
 
-> HTTP(S): Hyper Text를 주고받는 규칙(Transfer Protocol)
+HTTP(S): Hyper Text를 주고받는 규칙(Transfer Protocol)
 
 ##### 요소
 
@@ -58,7 +58,7 @@
 </a>
 ```
 
-<img src="assets/index.PNG" width="400px"/>
+<img src="assets/index.PNG" width="250px"/>
 
 > index.html
 ```html
@@ -105,7 +105,7 @@
 
   테이블 : `table>tr>td*4` + `Tab`
 
-<img src="assets/table.PNG" width="400px"/>
+<img src="assets/table.PNG" width="300px"/>
 
 > index.html
 ```html
@@ -190,7 +190,7 @@
 
 
 
-<img src="assets/subway.PNG" width="400px"/>
+<img src="assets/subway.PNG" width="250px"/>
 
 > subway.html
 ```html
@@ -202,19 +202,31 @@
 ```
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
 <body>
     <h1>서브웨이 주문하기</h1>
     <p>주문서를 작성하여 주십시오.</p>
     <form action="">
-        <p><label for="name">이름:</label>
-        <input id="name" type="text" name="name" placeholder="이름을 입력해주세요"></p>
-        <p><label for="date">날짜:</label>
-        <input id="date" type="date" name="date"></p>
+        <div>
+            <label for="name">이름:</label>
+            <input id="name" type="text" name="name" placeholder="이름을 입력해주세요">
+        </div>
+        <div>
+            <label for="date">날짜:</label>
+            <input id="date" type="date" name="date">
+        </div>
 
         <h3>1. 샌드위치 선택</h3>
-        <p><img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_cl06.jpg"><input type="radio" name="menu" value="1"><label for="option1">에그 마요</label></p>
-        <p><img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_cl01.jpg"><input type="radio" name="menu" value="2"><label for="option2">이탈리안 비엠티</label></p>
-        <p><img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_pm02.jpg"><input type="radio" name="menu" value="3"><label for="option3">터키 베이컨 아보카도</label></p>
+        <img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_cl06.jpg"><input type="radio" name="menu" value="1"><label for="option1">에그 마요</label><br>
+        <img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_cl01.jpg"><input type="radio" name="menu" value="2"><label for="option2">이탈리안 비엠티</label><br>
+        <img width="100" height="70" src="http://subway.co.kr/images/menu/sandwich_pm02.jpg"><input type="radio" name="menu" value="3"><label for="option3">터키 베이컨 아보카도</label>
         <hr>
 
         <h3>2. 사이즈 선택</h3>
@@ -230,15 +242,16 @@
         <hr>
 
         <h3>4. 야채/소스</h3>
-        <p><input type="checkbox" name="source" value="1">토마토</p>
-        <p><input type="checkbox" name="source" value="2">오이</p>
-        <p><input type="checkbox" name="source" value="3">할라피뇨</p>
-        <p><input type="checkbox" name="source" value="4">핫 칠리</p>
-        <p><input type="checkbox" name="source" value="5">바베큐</p>
-        <br>
+        <input id="tomato" type="checkbox" name="tomato" value="True"><label for="tomato">토마토</label><br>
+        <input id="cuc" type="checkbox" name="cuc" value="True"><label for="cuc">오이</label><br>
+        <input id="hala" type="checkbox" name="hala" value="True"><label for="hala">할라피뇨</label><br>
+        <input id="hot" type="checkbox" name="hot" value="True"><label for="hot">핫 칠리</label><br>
+        <input id="babeq" type="checkbox" name="babeq" value="True"><label for="babeq">바베큐</label><br>
+        
         <input type="submit">
     </form>
 </body>
+</html>
 ```
 
 - `<label for="name">이름:</label>`
