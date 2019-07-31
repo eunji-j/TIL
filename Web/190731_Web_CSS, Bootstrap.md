@@ -184,9 +184,9 @@ p ~ li{
 
 ### MySite 만들기
 
-<img src="assets/lotto.PNG" width="400px"/>
+<img src="assets/lotto.PNG" width="300px"/>
 
-<img src="assets/lunch.PNG" width="400px"/>
+<img src="assets/lunch.PNG" width="300px"/>
 
 <img src="assets/opgg.PNG" width="600px"/>
 
