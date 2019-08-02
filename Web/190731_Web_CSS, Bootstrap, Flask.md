@@ -1,4 +1,4 @@
-## 190730_Web_CSS, Bootstrap
+## 190730_Web_CSS, Bootstrap, Flask
 
 <br>
 
@@ -107,7 +107,7 @@ p ~ li{
 - ##### Bootstrap 사용하기 (반응형)
 
   1. [https://getbootstrap.com](https://getbootstrap.com/)
-  2. Documentation -> Introduction -> <head>안에 CSS (1줄), <body>안에 JS (3줄) 코드 복사, 붙여넣기
+  2. Documentation -> Introduction -> head 안에 CSS (1줄), body 안에 JS (3줄) 코드 복사, 붙여넣기
   3. 사용법 공식문서 참조
 
 ```html
@@ -119,14 +119,14 @@ p ~ li{
 ```html
 <body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 ```
 
 <br>
 
-### 1. Utilities, Component 사용해보기
+### 1. intro
 
 <img src="assets/0intro.PNG" width="600px"/>
 
@@ -140,6 +140,7 @@ p ~ li{
         <h1 class="mx-auto bg-info d-inline" style="width:50%">이제부터 부트스트랩</h1>
         <h1 class="mx-auto d-inline" style="width:50%">이제부터 부트스트랩</h1>
         <h1 class="m-5 bg-secondary text-success">테스트</h1>
+        
         <!-- sm사이즈 일때는 display를 none으로 설정(반응형) -->
         <h1 class="d-sm-none">display</h1> 
         <a href="https://www.naver.com" class="d-block btn btn-warning">네이버</a>
@@ -150,7 +151,7 @@ p ~ li{
     </div>
 </body>
 ```
- div.container + `Tap`
+- div.container + `Tap`
 
 <br>
 
@@ -180,17 +181,90 @@ p ~ li{
 
 <br>
 
-## [예제] HTML, Bootstrap, Flask 이용
+### 3. Component
+
+<img src="assets/02component.PNG" width="700px"/>
+
+
+
+```html
+<body>
+    <!-- 1.Nav (컨테이너밖) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="01_grid.html">Instagram</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!--2.Jumbotron (컨테이너안) -->
+        <div class="jumbotron">
+            <h1 class="display-4">Hello, world!</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-  " href="#" role="button">Learn more</a>
+        </div>
+        <!-- 3.Buttons (컨테이너안) -->
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+        <a class="btn btn-danger" href="https://google.com">구글</a>
+        <!-- 4.Card (컨테이너안) -->
+        <div class="row">
+            <div class="card d-inline mx-4" style="width: 18rem;">
+                <img src="https://picsum.photos/200/300?random=1" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card d-inline mx-4" style="width: 18rem;">
+                <img src="https://picsum.photos/200/300?random=2" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card d-inline mx-4" style="width: 18rem;">
+                <img src="https://picsum.photos/200/300?random=3" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <!-- 5.Carousel (컨테이너안) -->
+        <!-- 생략 -->
+    </div>
+</body>
+```
+
+<br>
+
+## [예제] HTML, Bootstrap, Flask
 
 ### MySite 만들기
 
-<img src="assets/lotto.PNG" width="300px"/>
-
-<img src="assets/lunch.PNG" width="300px"/>
-
-<img src="assets/opgg.PNG" width="600px"/>
-
-> app.py
+> app.py (Flask 이용)
 ```python
 from flask import Flask, escape, request, render_template
 import random
@@ -259,6 +333,8 @@ if __name__=="__main__":
 </body>
 ```
 
+<img src="assets/home.PNG" width="600px"/>
+
 > index.html
 
 ```html
@@ -270,32 +346,34 @@ if __name__=="__main__":
 {% endblock %}
 ```
 
+<img src="assets/lotto.PNG" width="400px"/>
+
 > lotto.html
 
 ```html
 {% extends 'base.html' %}
-<!-- base.html을 확장(중복제거) -->
-
 {% block body %}
   <h1>{{numbers}}</h1>
 {% endblock %}
 ```
 
+<img src="assets/lunch.PNG" width="400px"/>
+
 > lunch.html
 
 ```html
 {% extends 'base.html' %}
-
 {% block body %}
   <h1>추천메뉴: {{choice}}</h1>
 {% endblock %}
 ```
 
+<img src="assets/opgg.PNG" width="600px"/>
+
 > opgg.html
 
 ```html
 {% extends 'base.html' %}
-
 {% block body %}
   <div class="bg-primary">
     <img class="d-block mx-auto" src="https://attach.s.op.gg/logo/20190730135214.bb87673d92d8dff6a5de5c104187e4b4.png" alt="">
@@ -313,7 +391,6 @@ if __name__=="__main__":
 
 ```html
 {% extends 'base.html' %}
-
 {% block body %}
   <h1>여기는 결과창입니다.</h1>
   <p>{{summoner}}님의 등급은 {{user_tier}}입니다.</p>
