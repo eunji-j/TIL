@@ -1,4 +1,4 @@
-## 190806_Django_데이터 전달
+## 190806_Django_Data전달, ORM
 
 <br>
 
@@ -146,20 +146,20 @@ class Post(models.Model):
     # models.Model을 상속한다.
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=100)
-    # 스키마 정의 (길이 정해주기)
+    # 파이썬코드로 스키마 정의 (길이 정해주기)
 ```
 
 > 터미널 설정
 
 ```
 $ python manage.py makemigrations
-파이썬코드를 sql로 사용하기 위해 번역하는 단계
+models.py에 작성한 파이썬코드를 sql로 사용하기 위해 번역해준다.(id 자동생성)
 
 $ python manage.py migrate
-번역한 것을 불러오는 단계
+번역한 것을 적용한다.(테이블스키마로 변환해줌)
 
 $ python manage.py shell
-터미널에서 sql 사용하기 위한 단계
+터미널에서 sql사용이 가능해진다.
 ```
 
 ### 2-1. Data 입력 (터미널)
