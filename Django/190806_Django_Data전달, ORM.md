@@ -2,12 +2,13 @@
 
 <br>
 
-#### Django 데이터 전달하기
+#### 1) Django 데이터 전달하기
 
 > Get	vs	Post
 
 - Get: ~주세요 / 데이터 변화없이 기존의 값 가져온다.
-- Post: ~처리해주세요 / 대부분 서버의 정보를 갱신한다. (추가, 수정, 삭제)
+- Post: ~처리해주세요 / 대부분 서버의 정보를 갱신한다. 
+  - Create(생성), Read(읽기), Update(갱신), Delete(삭제)
 
 ### 1. Get
 
@@ -51,7 +52,7 @@ user_name = request.POST.get('name')
 
 <br>
 
-#### Django 정적 파일 관리하기 (static)
+#### 2) Django 정적 파일 관리하기 (static)
 
 > Django에서는 수정이 일어나지 않는 이미지나 css는 static 폴더에 넣어서 사용한다. 
 
@@ -82,11 +83,11 @@ user_name = request.POST.get('name')
 
 <br>
 
-#### Django Url 분리해주기
+#### 3) Django Url 분리해주기
 
 > app마다 같은 이름의 url이 있을 경우를 대비하여 경로를 구분해준다.
 
-### 1. Master
+### 1. Master Url
 
 - `from django.urls import path, include`: 임포트
 
@@ -108,7 +109,7 @@ urlpatterns = [
 ]
 ```
 
-### 2. Sub
+### 2. Sub Url
 
 - `from . import views`: 현재 위치(.)에 있는 views 임포트
 
@@ -130,13 +131,13 @@ urlpatterns = [
 
 <br>
 
-#### Django ORM, SQL
+#### 4) Django ORM, SQL
 
 ### 1. Schema 정의
 
 - 데이터베이스에서 데이터의 구조, 표현방법, 관계 등을 정의한다. 이 구조에 맞는 데이터만 저장한다.
 
-> posts 폴더 > models.py
+> posts 폴더 > models.py (Model 생성)
 
 ```python
 from django.db import models
@@ -149,14 +150,14 @@ class Post(models.Model):
     # 파이썬코드로 스키마 정의 (길이 정해주기)
 ```
 
-> 터미널 설정
+> 터미널 설정 (ORM으로 변환)
 
 ```
 $ python manage.py makemigrations
-models.py에 작성한 파이썬코드를 sql로 사용하기 위해 번역해준다.(id 자동생성)
+models.py에 작성한 파이썬코드를 sql로 사용하기 위해 번역해준다.(id는 자동생성된다.)
 
 $ python manage.py migrate
-번역한 것을 적용한다.(테이블스키마로 변환해줌)
+번역한 것을 실제 데이터베이스에 적용한다.(테이블스키마로 변환해준다.)
 
 $ python manage.py shell
 터미널에서 sql사용이 가능해진다.
