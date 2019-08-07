@@ -1,4 +1,4 @@
-## 190807_Django_Board, CRUD
+## 190807_Django_Board실습, CRUD
 
 <br>
 
@@ -140,7 +140,7 @@ admin.site.register(Todo)
    $ python manage.py migrate
    ```
 
-2. todos > admin.py > **Todo 클래스 임포트 및 관리자 페이지에 사이트 등록**
+2. todos > admin.py > Todo 클래스 임포트 및 관리자 페이지에 사이트 등록
 
    ```python
    from django.contrib import admin
@@ -253,7 +253,7 @@ admin.site.register(Todo)
        return render(request, 'detail.html', context)
    ```
 
-3. todos > templates > `detail.html` 생성 (bootstrap > jumbotron 형태)
+3. todos > templates > `detail.html` 생성 (bootstrap > jumbotron 형태: 수정, 삭제버튼)
 
    ```html
    {% extends 'base.html' %}
@@ -293,16 +293,18 @@ admin.site.register(Todo)
    ]
    ```
 
-2. todos > views.py > `import redirect` 및 `def delete()`, `def edit()`, `def update()` 생성
+2. todos > views.py > redirect 임포트 및 `def delete()`, `def edit()`, `def update()` 생성
 
    ```python
    from django.shortcuts import render, redirect
+   # redirect 임포트
    
    def delete(request, todo_id):
        todo = Todo.objects.get(id=todo_id)
        todo.delete()
        # return render(request, 'delete.html')
        return redirect('/todos/')
+   	# 삭제완료 페이지로 가지않고 삭제한 뒤 바로 전체목록 페이지로 가도록 설정(redirect)
    
    def edit(request, todo_id):
        todo = Todo.objects.get(id=todo_id)
@@ -327,18 +329,52 @@ admin.site.register(Todo)
    
        # return render(request, 'update.html')
        return redirect(f'/todos/{todo_id}/')
+   	# 수정완료 페이지로 가지않고 수정한 뒤 바로 전체목록 페이지로 가도록 설정(redirect)
    ```
 
-3. todos > templates > .html 생성
+- render / redirect 차이점?
+  - `return render(request, 'update.html')` → 템플릿(.html)을 불러온다.
+  - `return redirect('/todos/')` → Url로 이동한다. -> views 실행
 
+3. todos > templates > `detail.html` > 수정, 삭제 **버튼 경로 지정**
 
+   ```html
+   <a class="btn btn-warning btn-lg" href="/todos/{{todo.id}}/edit/" role="button">수정</a>
+   <a class="btn btn-danger btn-lg" href="/todos/{{todo.id}}/delete/" role="button" onclick="return confirm('삭제할꺼니?')">삭제</a>
+   <!-- javascript 코드로 삭제확인 -->
+   ```
 
+4. todos > templates > `edit.html` 생성 (기존의 값 **input태그의 value**로 보여준다.)
 
+   > edit.html
+
+   ```html
+   {% extends 'base.html' %}
+   {% block body %}
+     <form action="/todos/{{todo.id}}/update/" class="m-5">
+       <div class="form-group">
+         <label for="title">ToDo</label>
+         <input type="text" class="form-control" id="title", name="title" value="{{todo.title}}">
+         </div>
+       <div class="form-group">
+         <label for="content">Content</label>
+         <input type="text" class="form-control" id="content" name="content" value="{{todo.content}}">
+       </div>
+       <div class="form-group">
+         <label for="due-date">Due Date</label>
+         <input type="date" class="form-control" id="due-date" name="due-date" value="{{todo.due_date|date:'Y-m-d'}}">
+        <!-- |date:'Y-m-d': Date타입 input value 설정해주는 법 -->   
+       </div>
+       <button type="submit" class="btn btn-warning">수정</button>
+     </form>
+   {% endblock %}
+   ```
 
 ------
 
-< !_! >
+< ?! >
 
-todos = Todo.objects.**order_by('due_date')**.all()
+- todos = Todo.objects.**order_by('due_date')**.all()
 
-정렬기준 설정
+  : 모든 데이터 가져올 때 정렬기준 정해주는 방법
+

@@ -92,6 +92,8 @@ django_intro 폴더 -> settings.py 파일 -> INSTALLED_APPS 리스트 안에 'pa
 django_intro 폴더 -> urls.py 파일 -> from pages import views 해주기
 ```
 
+<br>
+
 > ★반복되는 흐름 (urls.py -> views.py -> templates)
 
 ```

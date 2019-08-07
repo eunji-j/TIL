@@ -1,4 +1,4 @@
-## 190806_Django_Data전달, ORM
+## 190806_Django_Data전달, CRUD
 
 <br>
 
@@ -131,7 +131,7 @@ urlpatterns = [
 
 <br>
 
-#### 4) Django ORM, SQL
+#### 4) Django ORM, CRUD
 
 ### 1. Schema 정의
 
