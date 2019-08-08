@@ -26,23 +26,31 @@ admin.site.register(Todo)
 
 <br>
 
-#### 2) Django Board 종합 실습
+#### 2) Django Board 실습
 
 > ToDo(할일) 등록하고 관리하는 게시판 만들어 보는 시간 !! 
 
-- Navbar구성
-  - All (Todo목록)
-  - New (Todo등록)
-- Todo 클래스 속성
-  - title (제목)
-  - content (내용)
-  - due_date (마감기간)
+- Project / App name
+  - `Project `: board
+  - `App`: todos
+
+- Models (class)
+  - `Todo` 속성: title (제목), content (내용), due_date (마감기간)
+
 - 페이지(.html) 구성
-  - new (Todo등록)  >  create (등록완료)
-  - index (Todo목록)
-  - detail (Todo상세정보: 수정, 삭제)
-  - delete (삭제완료)
-  - edit (수정)  >  update (수정완료)
+  
+  - `base.html` (부모 html)
+  - `new.html` (ToDo등록) - > `create.html` (등록완료)
+  - `index.html` (ToDo목록)
+  - `detail.html` (ToDo상세정보: 수정, 삭제)
+  - `delete.html` (삭제완료)
+  - `edit.html` (수정) - > `update.html` (수정완료)
+  
+- 화면 Navbar 구성 (base.html)
+
+  1. `All`: ToDo목록 보여주는 메뉴
+
+  2. `New`: ToDo등록하는 메뉴
 
 <br>
 
@@ -72,7 +80,7 @@ admin.site.register(Todo)
    ]
    ```
 
-3. board > urls.py > 임포트 및 path 추가
+3. board > urls.py > include 임포트 및 path 추가
 
    ```python
    from django.contrib import admin
@@ -84,7 +92,7 @@ admin.site.register(Todo)
    ]
    ```
 
-4. todos > urls.py > 임포트 및 path 추가
+4. todos > urls.py > views 임포트 및 path 추가
 
    ```python
    from django.urls import path
@@ -370,11 +378,142 @@ admin.site.register(Todo)
    {% endblock %}
    ```
 
-------
-
-< ?! >
-
 - todos = Todo.objects.**order_by('due_date')**.all()
 
   : 모든 데이터 가져올 때 정렬기준 정해주는 방법
+
+<hr>
+#### 3) Django nonojapan 실습
+
+> home.html
+
+<img src="assets/nono_products.png" width="700px">
+
+
+```html
+{% extends 'base.html' %}
+{% block body %}
+<div class="row m-4">
+  {% for product in products %}
+  <div class="col-4">
+  <!-- 화면에 card가 3개씩 정렬하기 위해 div에 col-4라는 속성을 주었다. -->
+    <div class="card mb-5">
+      <ul class="list-group list-group-flush" style="list-style: none">
+        <li class="list-group-item"><img src="{{product.image}}" alt="" style="height:60px;"><strong style="margin-left:10px;">{{product.name}}</strong></li>
+        <li class="list-group-item"><p>대체상품</p><button type="button" class="btn btn-warning mt-1">{{product.replace}}</button></li>
+        <li class="list-group-item text-muted"># {{product.category}}</li>
+        <li class="list-group-item mx-auto"><a href="/products/{{product.id}}/" class="btn btn-outline-primary">상세정보</a></li>
+      </ul>
+    </div>
+  </div>
+  {% empty %}
+  <!-- 상품이 없을때 처리 -->
+  <div class="col-4">
+    <div class="card mb-5">
+      <ul class="list-group list-group-flush" style="list-style: none">
+        <li>상품이 없습니다.</li>
+        <li>-</li>
+        <li>-</li>
+        <li></li>
+        <li><a href="#" class="btn btn-outline-primary">상세정보</a></li>
+      </ul>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+```
+
+> new.html
+
+<img src="assets/nono_new.png" width="700px">
+
+
+```html
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mx-auto">
+  <!-- 가운데 정렬하기 위해 container를 만들었다. -->
+  <form action="/products/create/" class="mt-3">
+    <h3 class="text-warning">제품 추가</h3><hr>
+    <div class="form-group">
+      <label for="name" class="text-light">제품명</label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="category" class="text-light">카테고리</label><br>
+      <select class="form-control" id="category" name="category">
+        <option value="패션" selected>패션</option>
+        <option value="가전제품">가전제품</option>
+        <option value="화장품">화장품</option>
+        <option value="기타">기타</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="replace" class="text-light">대체상품</label>
+      <input type="text" class="form-control" id="replace" name="replace">
+    </div>
+    <div class="form-group">
+      <label for="image" class="text-light">이미지 주소</label>
+      <input type="text" class="form-control" id="image" name="image">
+    </div>
+    <button type="submit" class="btn btn-warning w-100" onclick="return alert('제품이 추가되었습니다.')">추가하기</button>
+  </form>
+</div>
+{% endblock %}
+```
+
+> detail.html
+
+<img src="assets/nono_detail.png" width="700px">
+
+```html
+{% extends 'base.html' %}
+{% block body %}
+  <div class="jumbotron mt-4">
+    <img src="{{product.image}}" alt="">
+    <h1 class="display-4 mt-3">{{product.name}}</h1>
+    <p class="lead"># {{product.category}}</p>
+    <hr class="my-4">
+    <p>{{product.replace}}</p>
+    <a class="btn btn-primary btn-lg" href="/products/{{product.id}}/edit/" role="button">수정</a>
+    <a class="btn btn-danger btn-lg" href="/products/{{product.id}}/delete/" role="button">삭제</a>
+  </div>
+{% endblock %}
+```
+
+> edit.html
+
+<img src="assets/nono_edit.png" width="700px">
+
+```html
+{% extends 'base.html' %}
+{% block body %}
+  <form action="/products/{{product.id}}/update/" class="mt-3">
+    <h5 class="text-warning">제품 수정</h5><hr>
+    <div class="form-group">
+      <label for="name" class="text-light">제품명</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{product.name}}">
+    </div>
+    <div class="form-group">
+      <label for="category" class="text-light">카테고리</label><br>
+      <select class="form-control" id="category" name="category" value="{{product.category}}">
+        <option value="패션" selected>패션</option>
+        <option value="가전제품">가전제품</option>
+        <option value="화장품">화장품</option>
+        <option value="기타">기타</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="replace" class="text-light">대체상품</label>
+      <input type="text" class="form-control" id="replace" name="replace" value="{{product.replace}}">
+    </div>
+    <div class="form-group">
+      <label for="image" class="text-light">이미지 주소</label>
+      <input type="text" class="form-control" id="image" name="image" value="{{product.image}}">
+    </div>
+    <button type="submit" class="btn btn-warning w-100" onclick="return alert('제품정보가 수정되었습니다.')">수정하기</button>
+  </form>
+{% endblock %}
+```
 

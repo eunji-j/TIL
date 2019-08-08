@@ -147,7 +147,7 @@ class Post(models.Model):
     # models.Model을 상속한다.
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=100)
-    # 파이썬코드로 스키마 정의 (CharField는 필수로 길이 정해주기)
+    # 파이썬코드로 스키마 정의 (길이 정해주기)
 ```
 
 > 터미널 설정 (ORM으로 변환)
