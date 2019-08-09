@@ -1,4 +1,4 @@
-## 190807_Django_QnA실습, CRUD
+## 190808_Django_QnA실습, CRUD
 
 <br>
 
@@ -298,7 +298,7 @@
    {% endblock %}
    ```
 
-![qna2](190808_Django_QnA 실습.assets/qna2.PNG)
+![qna2](./assets/qna2.PNG)
 
 2. articles > templates > `new.html` > **bootstrap** (Components > Collapse > **Components > Form controls 사용**)
 

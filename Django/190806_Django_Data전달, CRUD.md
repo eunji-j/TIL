@@ -258,4 +258,4 @@ def index(request):
 
 - SQLite explorer 확장프로그램 설치
 
-<img src="assets/sqlite.png" width="350px">
+![new](./assets/sqlite.PNG)

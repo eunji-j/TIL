@@ -139,7 +139,7 @@ admin.site.register(Todo)
 
 ### 3. Create & Admin
 
-<img src="assets/new.png" width="700px">
+![new](./assets/new.PNG)
 
 1. ORM(테이블 스키마) 변환 명령어 2개 실행
 
@@ -183,7 +183,7 @@ admin.site.register(Todo)
 
 ### 4. index page
 
-<img src="assets/all.png" width="700px">
+![new](./assets/all.PNG)
 
 1. todos > urls.py > path 추가
 
@@ -239,7 +239,7 @@ admin.site.register(Todo)
 
 ### 5. detail
 
-<img src="assets/detail.png" width="700px">
+![new](./assets/detail.PNG)
 
 1. todos > urls.py > path 추가
 
@@ -287,7 +287,7 @@ admin.site.register(Todo)
 
 ### 6. delete & update
 
-<img src="assets/update.png" width="700px">
+![new](./assets/update.PNG)
 
 1. todos > urls.py > path 추가
 
@@ -381,13 +381,15 @@ admin.site.register(Todo)
 - todos = Todo.objects.**order_by('due_date')**.all()
 
   : 모든 데이터 가져올 때 정렬기준 정해주는 방법
+  
+  <br>
 
-<hr>
 #### 3) Django nonojapan 실습
+
 
 > home.html
 
-<img src="assets/nono_products.png" width="700px">
+![new](./assets/nono_products.PNG)
 
 
 ```html
@@ -426,7 +428,7 @@ admin.site.register(Todo)
 
 > new.html
 
-<img src="assets/nono_new.png" width="700px">
+![new](./assets/nono_new.PNG)
 
 
 ```html
@@ -465,7 +467,7 @@ admin.site.register(Todo)
 
 > detail.html
 
-<img src="assets/nono_detail.png" width="700px">
+![new](./assets/nono_detail.PNG)
 
 ```html
 {% extends 'base.html' %}
@@ -484,7 +486,7 @@ admin.site.register(Todo)
 
 > edit.html
 
-<img src="assets/nono_edit.png" width="700px">
+![new](./assets/nono_edit.PNG)
 
 ```html
 {% extends 'base.html' %}
