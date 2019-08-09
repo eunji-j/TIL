@@ -256,7 +256,7 @@
 
 ### 6. html & bootstrap
 
-![qna1](C:\Users\student\TIL\Django\assets\qna1.PNG)
+![qna1](./assets/qna1.PNG)
 1. articles > templates > `index.html` > **bootstrap** (Components > Collapse > **Accordion 사용**)
 
    ```html
