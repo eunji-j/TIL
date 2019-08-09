@@ -2,7 +2,7 @@
 
 <br>
 
-#### 1) Django 관리 페이지 (admin)
+## 1) Django 관리 페이지 (admin)
 
 > http://127.0.0.1:8000/admin/
 
@@ -26,7 +26,7 @@ admin.site.register(Todo)
 
 <br>
 
-#### 2) Django Board 실습
+## 2) Django Board 실습
 
 > ToDo(할일) 등록하고 관리하는 게시판 만들어 보는 시간 !! 
 
@@ -384,7 +384,7 @@ admin.site.register(Todo)
   
   <br>
 
-#### 3) Django nonojapan 실습
+## 3) Django nonojapan 실습
 
 
 > home.html
