@@ -256,9 +256,8 @@
 
 ### 6. html & bootstrap
 
-<img src="./assets/qna1.png" width="700px">
-
-1. articles > templates > `index.html` > bootstrap (Components > Collapse > **Accordion 사용**)
+![qna1](C:\Users\student\TIL\Django\assets\qna1.PNG)
+1. articles > templates > `index.html` > **bootstrap** (Components > Collapse > **Accordion 사용**)
 
    ```html
    {% extends 'base.html' %}
@@ -299,9 +298,9 @@
    {% endblock %}
    ```
 
-<img src="assets/qna2.png" width="700px">
+![qna2](190808_Django_QnA 실습.assets/qna2.PNG)
 
-2. articles > templates > `new.html` > bootstrap (Components > Collapse > **Components > Form controls 사용**)
+2. articles > templates > `new.html` > **bootstrap** (Components > Collapse > **Components > Form controls 사용**)
 
    ```html
    {% extends 'base.html' %}
