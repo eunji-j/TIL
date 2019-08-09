@@ -256,7 +256,7 @@
 
 ### 6. html & bootstrap
 
-<img src="assets/qna1.png" width="700px">
+<img src="./assets/qna1.png" width="700px">
 
 1. articles > templates > `index.html` > bootstrap (Components > Collapse > **Accordion 사용**)
 
