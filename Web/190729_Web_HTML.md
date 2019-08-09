@@ -58,6 +58,8 @@ HTTP(S): Hyper Text를 주고받는 규칙(Transfer Protocol)
 </a>
 ```
 
+<br>
+
 <img src="assets/index.PNG" width="250px"/>
 
 > index.html
@@ -104,6 +106,8 @@ HTTP(S): Hyper Text를 주고받는 규칙(Transfer Protocol)
   리스트 : `ol>li*4` + `Tab`
 
   테이블 : `table>tr>td*4` + `Tab`
+
+<br>
 
 <img src="assets/table.PNG" width="300px"/>
 
@@ -188,7 +192,7 @@ HTTP(S): Hyper Text를 주고받는 규칙(Transfer Protocol)
 </body>
 ```
 
-
+<br>
 
 <img src="assets/subway.PNG" width="250px"/>
 

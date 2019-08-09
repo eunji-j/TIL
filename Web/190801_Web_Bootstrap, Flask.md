@@ -84,9 +84,9 @@ if __name__=="__main__":
 </body>
 ```
 
-<img src="assets/nono.PNG" width="600px"/>
-
 > nono.html
+
+<img src="assets/nono.PNG" width="600px"/>
 
 ```html
 {% extends 'base.html' %}
@@ -119,9 +119,9 @@ if __name__=="__main__":
 {% endblock %}
 ```
 
-<img src="assets/new.PNG" width="600px"/>
-
 > new.html
+
+<img src="assets/new.PNG" width="600px"/>
 
 ```html
 {% extends 'base.html' %}
@@ -145,9 +145,9 @@ if __name__=="__main__":
 {% endblock %}
 ```
 
-<img src="assets/create.PNG" width="600px"/>
-
 > create.html
+
+<img src="assets/create.PNG" width="600px"/>
 
 ```html
 {% extends 'base.html' %}
@@ -156,9 +156,9 @@ if __name__=="__main__":
 {% endblock %}
 ```
 
-<img src="assets/card.PNG" width="600px"/>
-
 > card.html
+
+<img src="assets/card.PNG" width="600px"/>
 
 ```html
 {% extends 'base.html' %}

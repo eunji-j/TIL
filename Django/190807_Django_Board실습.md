@@ -1,4 +1,4 @@
-## 190807_Django_Board실습, CRUD
+# 190807_Django_Board실습, CRUD
 
 <br>
 

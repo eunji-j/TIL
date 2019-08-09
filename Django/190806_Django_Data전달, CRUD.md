@@ -1,8 +1,8 @@
-## 190806_Django_Data전달, CRUD
+# 190806_Django_Data전달, CRUD
 
 <br>
 
-#### 1) Django 데이터 전달하기
+## 1) Django 데이터 전달하기
 
 > Get	vs	Post
 
@@ -52,7 +52,7 @@ user_name = request.POST.get('name')
 
 <br>
 
-#### 2) Django 정적 파일 관리하기 (static)
+## 2) Django 정적 파일 관리하기 (static)
 
 > Django에서는 수정이 일어나지 않는 이미지나 css는 static 폴더에 넣어서 사용한다. 
 
@@ -83,7 +83,7 @@ user_name = request.POST.get('name')
 
 <br>
 
-#### 3) Django Url 분리해주기
+## 3) Django Url 분리해주기
 
 > app마다 같은 이름의 url이 있을 경우를 대비하여 경로를 구분해준다.
 
@@ -131,7 +131,7 @@ urlpatterns = [
 
 <br>
 
-#### 4) Django ORM, CRUD
+## 4) Django ORM, CRUD
 
 ### 1. Schema 정의
 

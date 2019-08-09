@@ -1,8 +1,8 @@
-## 190808_Django_QnA실습, CRUD
+# 190808_Django_QnA실습, CRUD
 
 <br>
 
-#### 1) Django QnA 종합 실습
+## 1) Django QnA 종합 실습
 
 > QnA 등록하고 관리하는 게시판 만들어 보는 시간 !! 
 
@@ -161,7 +161,7 @@
 
 <br>
 
-### 4. index
+### 5. index
 
 1. articles > urls.py > path 추가
 
@@ -199,7 +199,7 @@
 
 <br>
 
-### 5. answer_create
+### 6. answer_create
 
 1. articles > models.py > Answer 클래스 추가
 
@@ -254,7 +254,7 @@
 
 <br>
 
-### 6. html & bootstrap
+### 7. html & bootstrap
 
 ![qna1](./assets/qna1.PNG)
 1. articles > templates > `index.html` > **bootstrap** (Components > Collapse > **Accordion 사용**)
