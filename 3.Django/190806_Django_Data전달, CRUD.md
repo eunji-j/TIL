@@ -15,14 +15,21 @@
 > views.py
 
 ```python
-user_name = request.GET.get('name') 
+def index(request):
+    user_name = request.GET.get('name') 
 
-# 요청이 GET안에 딕셔너리 형태로 들어와서 get으로 값을 얻음
+    # 요청이 GET안에 딕셔너리 형태로 들어와서 get으로 값을 얻음
 
-# raise
-# 강제 오류발생(어떤값이 넘어오는지 확인할 수 있다.)
+    # raise
+    # 강제 오류발생(어떤값이 넘어오는지 확인할 수 있다.)
 
-# flask에서는 request.args.get()로 쓰인다.
+    # flask에서는 request.args.get()로 쓰인다.
+
+    context = {
+        'name': name
+    }
+
+    return render(request, 'index.html', context)
 ```
 
 > ping.html

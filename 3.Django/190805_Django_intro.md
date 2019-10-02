@@ -89,7 +89,7 @@ django_intro 폴더 -> settings.py 파일 -> INSTALLED_APPS 리스트 안에 'pa
 								LANGUAGE_CODE = 'en-us'를 'ko-kr'로 바꿔주기
 								TIME_ZONE = 'UTC'을 'Asia/Seoul'로 바꿔주기
 										
-django_intro 폴더 -> urls.py 파일 -> from pages import views 해주기
+django_intro 폴더 -> urls.py 파일 -> 'from pages import views' 해주기
 ```
 
 <br>
@@ -102,5 +102,5 @@ django_intro 폴더 -> urls.py 파일 -> from pages import views 해주기
 
 2. pages 폴더 -> views.py 파일 -> def index(request):
     					return render(request, 'index.html') 적어주기
-3. pages 폴더 -> templates 폴더 만들기 -> index.html 파일 만들기
+3. pages 폴더 -> templates 폴더 만들기 -> index.html 파일 만들기 -> !+tap(자동완성)
 ```
