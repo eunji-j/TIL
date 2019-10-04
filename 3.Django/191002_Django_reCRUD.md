@@ -1,8 +1,6 @@
-## 191002_Django_ reCRUD
+# 191002_Django_ reCRUD
 
-> 
-
-## 1. 기본 Django 흐름
+## 기본 Django 흐름
 
 #### 기본구조 생성
 

@@ -11,8 +11,8 @@
   - `App`: articles
 
 - Models (class)
-  - `Question` 질문 속성: title (제목), content (내용), user (마감기간), created_at (작성시간)
-  - `Answer` 댓글 속성: content(내용), question(질문번호: 외래키, cascade옵션)
+  - `Question` 질문 속성: title (제목), content (내용), user (작성자), created_at (작성시간)
+  - `Answer` 댓글 속성: content(내용), question(질문번호: **외래키**, cascade옵션)
 
 - 페이지(.html) 구성
 
