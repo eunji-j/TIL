@@ -35,9 +35,9 @@
 
 ### 3. SQLite3
 
-http://bit.do/hello_db에서 
+http://bit.do/hello_db -> sqlite 다운로드 후 '~' 위치에 저장.
 
-> 터미널에서 사용해보기(불편하다.)
+< 1 > 터미널에서 사용해보기(불편하다.)
 
 ```bash
 $ sqlite3 # 실행
@@ -65,7 +65,7 @@ id          first_name  last_name   age         country     phone
 
 <br>
 
-> 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
+< 2 > 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
 
 ### 4-1. intro
 
@@ -89,8 +89,9 @@ id          first_name  last_name   age         country     phone
 SELECT * FROM examples;
 ```
 ```bash
-$ sqlite3 # 실행
-sqlite> .read 00_intro.sql # 00_intro.sql파일을 읽는다.
+id          first_name  last_name   age         country     phone
+----------  ----------  ----------  ----------  ----------  -------------
+1           길동          홍           600         충청도         010-2424-1232
 ```
 
 <br>
@@ -182,7 +183,6 @@ DROP TABLE classmates;
 ```
 
 ```bash
-sqlite> .read 02_CRUD.sql
 name        age         address
 ----------  ----------  ----------
 홍길동         19          광주
@@ -325,4 +325,97 @@ rowid       name        age         address
 1           김철수         23          대전
 2           박나래         23          서울
 3           홍길동         30          제주
+```
+
+### 4-4. WHERE
+
+> 03_users.sql
+
+- ##### 기본1
+
+```sql
+.mode csv
+.import users.csv users
+.headers on
+
+.tables
+-- 전체 출력
+SELECT * FROM users;
+
+-- 나이가 30 이상인 사람
+SELECT * FROM users WHERE age>=30;
+-- 나이가 30 이상인 사람의 이름
+SELECT first_name FROM users WHERE age>=30;
+-- 나이가 30 이상이고 성이 김인 사람의 성과 나이
+SELECT last_name, age FROM users WHERE age>=30 AND last_name="김";
+
+-- 컬럼의 총 개수
+SELECT COUNT(*) FROM users;
+-- 나이가 30 이상이고 성이 김인 사람수
+SELECT COUNT(*) FROM users WHERE age>=30 AND last_name="김";
+
+-- 나이가 30 이상인 사람의 평균 나이
+SELECT AVG(age) FROM users WHERE age>=30;
+-- 계좌 잔액이 가장 높은 사람과 액수
+SELECT first_name, MAX(balance) FROM users;
+-- 30살 이상인 사람의 계좌 평균 잔액
+SELECT AVG(balance) FROM users WHERE age>=30;
+
+-- 20대인 사람수
+SELECT COUNT(*) FROM users WHERE age LIKE '2_';
+-- 지역번호가 02인 사람수
+SELECT COUNT(*) FROM users WHERE phone LIKE '02-%';
+-- 이름이 준으로 끝나는 사람
+SELECT first_name FROM users WHERE first_name LIKE '%준';
+-- 중간번호가 5114인 사람
+SELECT phone FROM users WHERE phone LIKE '%-5114-%';
+
+-- 나이 오름차순 정렬 후 상위 10명
+SELECT age FROM users ORDER BY age ASC LIMIT 10;
+-- 나이순, 성 순으로 오름차순 정렬하여 상위 10개
+SELECT age, last_name FROM users ORDER BY age, last_name LIMIT 10;
+-- 계좌잔액 순으로 내림차순 정렬하여 해당하는 사람의 성과 이름 10개
+SELECT last_name, first_name FROM users ORDER BY balance DESC LIMIT 10;
+
+DROP TABLE users;
+```
+
+#### LIKE 와일드카드
+
+- _: 한글자
+- %: 여러글자
+
+<br>
+
+### 4-4. DDL_a
+
+> 04_DDL_a.sql
+
+```sql
+CREATE TABLE articles (
+    title TEXT NOT NULL,
+    content TEXT NOT NULL
+);
+.tables
+
+INSERT INTO articles VALUES ("싸피입학식", "싸피입학식");
+SELECT * FROM articles;
+
+ALTER TABLE articles RENAME TO news;
+.tables
+
+-- 새로운 컬럼 추가
+-- NOT NULL조건을 지정하는 경우 기존 데이터가 있으면 오류 발생 
+-- -> 디폴트 값 지정해주거나 NOT NULL조건을 제거해준다.
+ALTER TABLE news ADD COLUMN created_at DATETIME NOT NULL DEFAULT 1;
+SELECT * FROM news;
+
+DROP TABLE news;
+```
+
+```bash
+articles
+싸피입학식|싸피입학식
+news
+싸피입학식|싸피입학식|1
 ```
