@@ -67,7 +67,7 @@ id          first_name  last_name   age         country     phone
 
 <2> 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
 
-### 4-1. intro
+### 4-0. intro
 
 > 00_intro.sql
 
@@ -96,7 +96,7 @@ id          first_name  last_name   age         country     phone
 
 <br>
 
-### 4-2. DDL
+### 4-1. DDL
 
 > 01_DDL.sql
 
@@ -154,7 +154,7 @@ CREATE TABLE classmates (
 
 <br>
 
-### 4-3. CRUD
+### 4-2. CRUD
 
 > 02_CRUD.sql
 
@@ -329,7 +329,7 @@ rowid       name        age         address
 
 <br>
 
-### 4-4. WHERE
+### 4-3. WHERE
 
 > 03_users.sql
 
@@ -350,19 +350,34 @@ SELECT * FROM users WHERE age>=30;
 SELECT first_name FROM users WHERE age>=30;
 -- 나이가 30 이상이고 성이 김인 사람의 성과 나이
 SELECT last_name, age FROM users WHERE age>=30 AND last_name="김";
+```
 
+#### COUNT
+
+```sql
 -- 컬럼의 총 개수
 SELECT COUNT(*) FROM users;
 -- 나이가 30 이상이고 성이 김인 사람수
 SELECT COUNT(*) FROM users WHERE age>=30 AND last_name="김";
+```
 
+#### AVG, MAX
+
+```sql
 -- 나이가 30 이상인 사람의 평균 나이
 SELECT AVG(age) FROM users WHERE age>=30;
 -- 계좌 잔액이 가장 높은 사람과 액수
 SELECT first_name, MAX(balance) FROM users;
 -- 30살 이상인 사람의 계좌 평균 잔액
 SELECT AVG(balance) FROM users WHERE age>=30;
+```
 
+#### LIKE (와일드카드)
+
+- _: 한글자
+- %: 여러글자
+
+```sql
 -- 20대인 사람수
 SELECT COUNT(*) FROM users WHERE age LIKE '2_';
 -- 지역번호가 02인 사람수
@@ -371,27 +386,26 @@ SELECT COUNT(*) FROM users WHERE phone LIKE '02-%';
 SELECT first_name FROM users WHERE first_name LIKE '%준';
 -- 중간번호가 5114인 사람
 SELECT phone FROM users WHERE phone LIKE '%-5114-%';
+```
 
+#### ORDER BY
+
+```sql
 -- 나이 오름차순 정렬 후 상위 10명
 SELECT age FROM users ORDER BY age ASC LIMIT 10;
 -- 나이순, 성 순으로 오름차순 정렬하여 상위 10개
 SELECT age, last_name FROM users ORDER BY age, last_name LIMIT 10;
 -- 계좌잔액 순으로 내림차순 정렬하여 해당하는 사람의 성과 이름 10개
 SELECT last_name, first_name FROM users ORDER BY balance DESC LIMIT 10;
-
-DROP TABLE users;
 ```
-
-#### LIKE 와일드카드
-
-- _: 한글자
-- %: 여러글자
 
 <br>
 
-### 4-5. DDL_a
+### 4-4. DDL_a
 
 > 04_DDL_a.sql
+
+#### ALTER
 
 ```sql
 CREATE TABLE articles (
@@ -403,10 +417,11 @@ CREATE TABLE articles (
 INSERT INTO articles VALUES ("싸피입학식", "싸피입학식");
 SELECT * FROM articles;
 
+-- 1.테이블명 변경
 ALTER TABLE articles RENAME TO news;
 .tables
 
--- 새로운 컬럼 추가
+-- 2.새로운 컬럼 추가
 -- NOT NULL조건을 지정하는 경우 기존 데이터가 있으면 오류 발생 
 -- -> 디폴트 값 지정해주거나 NOT NULL조건을 제거해준다.
 ALTER TABLE news ADD COLUMN created_at DATETIME NOT NULL DEFAULT 1;
