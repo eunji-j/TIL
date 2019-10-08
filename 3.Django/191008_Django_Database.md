@@ -327,6 +327,8 @@ rowid       name        age         address
 3           홍길동         30          제주
 ```
 
+<br>
+
 ### 4-4. WHERE
 
 > 03_users.sql
@@ -387,7 +389,7 @@ DROP TABLE users;
 
 <br>
 
-### 4-4. DDL_a
+### 4-5. DDL_a
 
 > 04_DDL_a.sql
 
