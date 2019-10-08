@@ -37,7 +37,7 @@
 
 http://bit.do/hello_db -> sqlite 다운로드 후 '~' 위치에 저장.
 
-< 1 > 터미널에서 사용해보기(불편하다.)
+<1> 터미널에서 사용해보기(불편하다.)
 
 ```bash
 $ sqlite3 # 실행
@@ -65,7 +65,7 @@ id          first_name  last_name   age         country     phone
 
 <br>
 
-< 2 > 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
+<2> 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
 
 ### 4-1. intro
 
