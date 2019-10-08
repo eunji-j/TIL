@@ -1,8 +1,6 @@
 # 191008_Django_Database
 
-## 새로 배운 것
-
-### 1. RDBMS (관계형 데이터베이스 관리 시스템)
+## 1. RDBMS (관계형 데이터베이스 관리 시스템)
 
 - **Tuple = Entity (개체) : 행, 레코드**
 
@@ -24,7 +22,7 @@
 
 <br>
 
-### 2. SQL (관계형 데이터베이스 관리 시스템)
+## 2. SQL (관계형 데이터베이스 관리 시스템)
 
 - CRUD기능을 하는 특수 목적의 프로그래밍 언어
   - **DDL**(테이블, 스키마정의): CREATE, DROP, ALTER
@@ -33,7 +31,7 @@
 
 <br>
 
-### 3. SQLite3
+## 3. SQLite3
 
 http://bit.do/hello_db -> sqlite 다운로드 후 '~' 위치에 저장.
 
@@ -67,7 +65,7 @@ id          first_name  last_name   age         country     phone
 
 <2> 좀더 편리하게 파일에서 명령어 입력후 사용해보기★
 
-### 4-0. intro
+## 4-0. intro
 
 > 00_intro.sql
 
@@ -96,7 +94,7 @@ id          first_name  last_name   age         country     phone
 
 <br>
 
-### 4-1. DDL
+## 4-1. DDL
 
 > 01_DDL.sql
 
@@ -154,7 +152,7 @@ CREATE TABLE classmates (
 
 <br>
 
-### 4-2. CRUD
+## 4-2. CRUD
 
 > 02_CRUD.sql
 
@@ -254,7 +252,7 @@ CREATE TABLE classmates (
 INSERT INTO classmates VALUES ('김철수', 23, '대전'), ('박나래', 23, '서울'), ('이요셉', 33, '구미');
 ```
 
-#### SELECT
+### SELECT
 
 ```sql
 -- 특정컬럼 가져오기
@@ -299,7 +297,7 @@ age
 33
 ```
 
-#### DELETE / UPDATE
+### DELETE / UPDATE
 
 ```sql
 -- DELETE
@@ -329,7 +327,7 @@ rowid       name        age         address
 
 <br>
 
-### 4-3. WHERE
+## 4-3. WHERE
 
 > 03_users.sql
 
@@ -352,7 +350,7 @@ SELECT first_name FROM users WHERE age>=30;
 SELECT last_name, age FROM users WHERE age>=30 AND last_name="김";
 ```
 
-#### COUNT
+### COUNT
 
 ```sql
 -- 컬럼의 총 개수
@@ -361,7 +359,7 @@ SELECT COUNT(*) FROM users;
 SELECT COUNT(*) FROM users WHERE age>=30 AND last_name="김";
 ```
 
-#### AVG, MAX
+### AVG, MAX
 
 ```sql
 -- 나이가 30 이상인 사람의 평균 나이
@@ -372,7 +370,7 @@ SELECT first_name, MAX(balance) FROM users;
 SELECT AVG(balance) FROM users WHERE age>=30;
 ```
 
-#### LIKE (와일드카드)
+### LIKE (와일드카드)
 
 - _: 한글자
 - %: 여러글자
@@ -388,7 +386,7 @@ SELECT first_name FROM users WHERE first_name LIKE '%준';
 SELECT phone FROM users WHERE phone LIKE '%-5114-%';
 ```
 
-#### ORDER BY
+### ORDER BY
 
 ```sql
 -- 나이 오름차순 정렬 후 상위 10명
@@ -401,11 +399,11 @@ SELECT last_name, first_name FROM users ORDER BY balance DESC LIMIT 10;
 
 <br>
 
-### 4-4. DDL_a
+## 4-4. DDL_a
 
 > 04_DDL_a.sql
 
-#### ALTER
+### ALTER
 
 ```sql
 CREATE TABLE articles (
