@@ -1,4 +1,4 @@
-# 191008_Django_Database
+### 191008_Database_intro
 
 ## 1. RDBMS (관계형 데이터베이스 관리 시스템)
 
