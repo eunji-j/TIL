@@ -114,6 +114,8 @@
    ```python
    # orm
    User.objects.get(id=102)
+   
+   # <User: User object (102)>
    ```
 
    ```sql
@@ -140,6 +142,8 @@
    ```python
    # orm
    User.objects.get(id=102).delete() # 연결하여 사용가능
+   
+   # (1, {'users.User': 1})
    ```
 
    ```sql
@@ -155,11 +159,15 @@
    # orm
    User.objects.all().count() # 방법1 (all생략가능)
    len(User.objects.all()) # 방법2
+   
+   # 101
    ```
 
    ```sql
    -- sql
    SELECT COUNT(*) FROM users_user;
+   
+   101
    ```
 
 2. 나이가 30인 사람의 이름
@@ -174,6 +182,11 @@
    ```sql
    -- sql
    SELECT first_name FROM users_user WHERE age=30;
+   
+   "영환"
+   "보람"
+   "은영"
+   "길동"
    ```
 
 3. 나이가 30살 이상인 사람의 인원 수
@@ -235,11 +248,24 @@
    ```python
    # orm
    User.objects.order_by('-age')[:10]
+   
+   <QuerySet [<User: User object (1)>, <User: User object (4)>, <User: User object (28)>, <User: User object (53)>, <User: User object (65)>, <User: User object (26)>, <User: User object (55)>, <User: User object (58)>, <User: User object (74)>, <User: User object (82)>]>
    ```
 
    ```sql
    -- sql
    SELECT * FROM users_user ORDER BY age DESC LIMIT 10;
+   
+   1,"정호","유",40,"전라북도",016-7280-2855,370
+   4,"미경","장",40,"충청남도",011-9079-4419,250000
+   28,"성현","박",40,"경상남도",011-2884-6546,580000
+   53,"상훈","홍",40,"전라북도",016-7698-6684,550
+   65,"민서","송",40,"경기도",011-9812-5681,51000
+   26,"영식","이",39,"경상북도",016-2645-6128,400000
+   55,"미경","이",39,"경기도",02-6697-3997,890000
+   58,"영일","배",39,"전라남도",010-3486-8085,280000
+   74,"승민","배",39,"강원도",010-4833-9657,840
+   82,"현지","김",39,"충청북도",02-8468-8321,680000
    ```
 
 2. 잔액이 적은 사람 10명
@@ -247,11 +273,24 @@
    ```python
    # orm
    User.objects.order_by('balance')[:10]
+   
+   <QuerySet [<User: User object (99)>, <User: User object (48)>, <User: User object (100)>, <User: User object (5)>, <User: User object (24)>, <User: User object (61)>, <User: User object (92)>, <User: User object (46)>, <User: User object (38)>, <User: User object (60)>]>
    ```
 
    ```sql
    -- sql
    SELECT * FROM users_user ORDER BY balance LIMIT 10;
+   
+   99,"우진","성",32,"전라북도",010-7636-4368,150
+   48,"보람","이",28,"강원도",02-2055-4138,210
+   100,"재현","김",25,"경상북도",016-1252-2316,210
+   5,"영환","차",30,"충청북도",011-2921-4284,220
+   24,"숙자","권",33,"경상남도",016-4610-3200,230
+   61,"우진","고",15,"경상북도",011-3124-1126,300
+   92,"미경","박",35,"경상북도",010-5203-5705,300
+   46,"명자","김",23,"전라남도",011-3545-5608,330
+   38,"준호","심",28,"충청북도",016-6703-7656,340
+   60,"은영","김",30,"경상북도",02-5110-2334,350
    ```
 
 3. 성, 이름 내림차순 순으로 5번째 있는 사람
@@ -259,11 +298,15 @@
    ```python
    # orm
    User.objects.order_by('-last_name', '-first_name')[4]
+   
+   # <User: User object (101)>
    ```
 
    ```sql
    -- sql
    SELECT * FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
+   
+   -- 101,"길동","홍",30,"제주도",010-1234-1234,10000
    ```
 
 
@@ -283,6 +326,8 @@
    ```sql
    -- sql
    SELECT AVG(age) FROM users_user;
+   
+   -- 28.2475247524752
    ```
 
 2. 김씨의 평균 나이
@@ -290,11 +335,15 @@
    ```python
    # orm
    User.objects.filter(last_name='김').aggregate(Avg('age'))
+   
+   # {'age__avg': 28.782608695652176}
    ```
 
    ```sql
    -- sql
    SELECT AVG(age) FROM users_user WHERE last_name='김';
+   
+   -- 28.7826086956522
    ```
 
 3. 계좌 잔액 중 가장 높은 값
@@ -302,11 +351,15 @@
    ```python
    # orm
    User.objects.aggregate(Max('balance'))
+   
+   # {'balance__max': 1000000}
    ```
 
    ```sql
    -- sql
    SELECT MAX(balance) FROM users_user;
+   
+   -- 1000000
    ```
 
 4. 계좌 잔액 총액
@@ -314,9 +367,13 @@
    ```python
    # orm
    User.objects.aggregate(Sum('balance'))
+   
+   # {'balance__sum': 14435040}
    ```
 
    ```sql
    -- sql
-   SELECT SUM(balance) FROM users_user;
+   SELECT SUM(balance) FROM users_user
+   
+   -- 14435040
    ```
