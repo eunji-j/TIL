@@ -70,7 +70,7 @@ f-1(x) = log3 (x+1) - log3 2
 
 ### 3. 집합과 조합론
 
- ![5-1](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\5-1.PNG)
+ ![5-1](assets/5-1.PNG)
 
 ```
 둘 중 하나라도 있으면 두 집합은 다른 것
@@ -82,13 +82,13 @@ f-1(x) = log3 (x+1) - log3 2
 벤다이어그램 이용
 ```
 
- ![8](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\8.PNG)
+ ![8](assets/8.PNG)
 
 ```
 64C2
 ```
 
- ![9](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\9.PNG)
+ ![9](assets/9.PNG)
 
 ```
 2**n = nC0 + nC1 + ... + nCn 
