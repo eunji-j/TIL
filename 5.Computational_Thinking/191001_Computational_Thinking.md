@@ -21,7 +21,8 @@
 -문제1. 2진수 표현에서 log n 비트로 표현할 수 있는 숫자 범위는?
 
 ```
-n가지
+ex. 3자리 비트 => 2**3가지
+즉, 2**log n = n가지가 된다.
 ```
 
 -문제2. 스무고개가 이상적으로 진행된다고 할 때, 맞출 수 있는 답의 종류는 몇 가지인가?
@@ -69,11 +70,30 @@ f-1(x) = log3 (x+1) - log3 2
 
 ### 3. 집합과 조합론
 
+ ![5-1](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\5-1.PNG)
+
+```
+둘 중 하나라도 있으면 두 집합은 다른 것
+```
+
  ![6](assets/6.PNG)
 
 ```
 벤다이어그램 이용
 ```
+
+ ![8](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\8.PNG)
+
+```
+64C2
+```
+
+ ![9](C:\Users\eunji_j\TIL\5.Computational_Thinking\assets\9.PNG)
+
+```
+2**n = nC0 + nC1 + ... + nCn 
+```
+
 
  ![10](assets/10.PNG)
 
@@ -107,6 +127,7 @@ nPm = n*(n-1)*...*(n-m+1)*1
 -문제14. x+y+z = 100의 자연수 해는 몇가지인가?
 
 ```
+(중복조합)
 x, y, z 범위를 나누어야 하므로 나눌 수 있는 곳 99개 중에서 2개의 조합을 구한다.
 99C2 = 4,851
 ```
