@@ -88,8 +88,6 @@ def create(request):
     return render(request, 'questions/form.html', context)
 ```
 
-<br>
-
 ### 3) Form 라디오버튼 출력
 
 questions > `forms.py` 에서 폼 클래스 생성
@@ -127,8 +125,6 @@ total_2 = choices.filter(pick=2).count()
 > `Session`을 데이터베이스에 저장하는 과정 (Create로직과 동일이다.)
 >
 > Session이 만료되면 로그아웃 된다.
-
-<br>
 
 ### base.html
 
