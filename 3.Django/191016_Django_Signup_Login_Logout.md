@@ -118,6 +118,13 @@ total_1 = choices.filter(pick=1).count()
 total_2 = choices.filter(pick=2).count()
 ```
 
+### 5) 소수점 처리
+
+```html
+<p>{{percent_1|floatformat}}%</p>
+<p>{{percent_2|floatformat}}%</p>
+```
+
 <br>
 
 ## Signup /  Login / Logout 기능 ★
