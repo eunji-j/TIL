@@ -4,7 +4,9 @@
 
 ## 새로 배운 것
 
-### 1)  의사(Doctor) : 환자(Patient) => N:M 관계
+### 1)  중간모델 O
+
+- ### 의사(Doctor) : 환자(Patient) => N:M 관계
 
 manytomany  > `models.py` 
 
@@ -68,3 +70,18 @@ class Patient(models.Model):
     def __str__(self):
         return self.name
 ```
+
+<br>
+
+### 2)  중간모델 X
+
+- ### 게시물:좋아요 => N:M 관계
+
+```
+
+```
+
+
+
+
+
