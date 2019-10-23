@@ -297,5 +297,39 @@ from django.conf.urls.static import static
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
+posts > `views.py` 에서 특정 **해시태그의 포스트를 찾아주는 함수**를 생성한다.
 
+```python
+def hashtags(request, id):
+    hashtag = get_object_or_404(HashTag, id=id)
+    posts = hashtag.taged_post.all
+    context = {
+        'posts': posts
+    }
+    return render(request, 'posts/index.html', context)
+```
+
+
+
+해시태그를 클릭하면 해당 포스트들 찾기
+
+posts > **templatetags** 폴더를 생성하고, 그 안에 `__init__.py`  (이 폴더가 모듈로써 동작하게 해주는 역할) 과 `make_link.py` (템플릿 등록 함수 생성하는 역할) 를 생성한다.
+
+```python
+from django import template
+
+register = template.Library()
+
+@register.filter
+def hashtag_link(post):
+    content = post.content #    #고양이 야옹 #강아지 멍멍 -> <a>#고양이</a>로 바꿔주겠다.
+    hashtags = post.hashtags.all() # QuerySet [HashTag object (1:고양이), HashTag object (2:강아지)...]
+
+    for hashtag in hashtags:
+        content = content.replace(
+            f'{hashtag.content}', 
+            f'<a href="/posts/hashtags/{hashtag.id}/">{hashtag.content}</a>'
+        )
+    return content
+```
 
