@@ -6,11 +6,9 @@
 
 ### 1)  팔로잉: 팔로워 (N:M 관계)
 
-<br>
-
 #### 1. User 모델과 User모델폼 수정
 
-accounts > `models.py` 에 User와 n:m관계의 **User모델을 수정 (확장)**한다.
+accounts > `models.py` 에 User와 n:m관계의 **User모델을 수정** (확장)한다.
 
 ```python
 from django.db import models
@@ -155,6 +153,8 @@ accounts > `user_page.html` 유저페이지에 **팔로우 기능 추가**해준
 
 ### 2)  포스트: 해시태그 (N:M 관계)
 
+#### 1. Post, HashTag 모델과 모델폼 생성
+
 posts > `models.py` 에서 n:m 관계인 **해시태그와 포스트모델**을 만들어준다.
 
 ```python
@@ -207,6 +207,8 @@ class PostForm(forms.ModelForm):
         fields = ('content', 'image',)
 ```
 
+#### 2. 이미지 포함된 Post 생성하기
+
 posts > `views.py` 에서 **포스트 생성 함수**를 생성한다.
 
 ```python
@@ -239,12 +241,13 @@ def create(request):
     return render(request, 'posts/form.html', context)
 ```
 
-posts > `form.html`
+posts > `form.html` 에서 **이미지파일 인코딩타입** 작성해준다.
 
 ```html
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block body %}
+  <!-- 이미지파일 인코딩타입 -->
   <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
@@ -253,28 +256,29 @@ posts > `form.html`
 {% endblock %}
 ```
 
-posts > `index.html`
+posts > `index.html` 에서 html을 분리시킨다.(선택사항)
 
 ```html
 {% extends 'base.html' %}
 {% block body %}
   {% for post in posts %}
+	<!-- include: html 분리시키기(다른 html포함) -->
     {% include 'posts/_post.html' %}
   {% endfor %}
 {% endblock %}
 ```
 
-posts > `_post.html`
+posts > `_post.html` **포스트 정보 페이지**를 만든다.
 
 ```html
 <div class="card col-6">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text">{{post.content}}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
+  <img src="..." class="card-img-top" alt="...">
+   <div class="card-body">
+     <h5 class="card-title"></h5>
+     <p class="card-text">{{post.content}}</p>
+     <a href="#" class="btn btn-primary">Go somewhere</a>
+   </div>
+</div>
 ```
 
 insta > `settings.py` > 맨 아래에 다음 2개의 **미디어 경로**를 지정해준다.
@@ -297,6 +301,8 @@ from django.conf.urls.static import static
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
+#### 3. 해시태그를 통해 포스트 찾기
+
 posts > `views.py` 에서 특정 **해시태그의 포스트를 찾아주는 함수**를 생성한다.
 
 ```python
@@ -308,10 +314,6 @@ def hashtags(request, id):
     }
     return render(request, 'posts/index.html', context)
 ```
-
-
-
-해시태그를 클릭하면 해당 포스트들 찾기
 
 posts > **templatetags** 폴더를 생성하고, 그 안에 `__init__.py`  (이 폴더가 모듈로써 동작하게 해주는 역할) 과 `make_link.py` (템플릿 등록 함수 생성하는 역할) 를 생성한다.
 
@@ -326,10 +328,30 @@ def hashtag_link(post):
     hashtags = post.hashtags.all() # QuerySet [HashTag object (1:고양이), HashTag object (2:강아지)...]
 
     for hashtag in hashtags:
+        # 문자열 대체
         content = content.replace(
             f'{hashtag.content}', 
             f'<a href="/posts/hashtags/{hashtag.id}/">{hashtag.content}</a>'
         )
     return content
+```
+
+posts > `_post.html` 에서 위에서 만든 `make_link.py`의 **hasthag_link 함수를 사용**한다.
+
+```html
+<!-- 만들어놓은 make_link모듈을 불러온다. -->
+{% load make_link %} 
+
+<div class="card col-6">
+  <img src="..." class="card-img-top" alt="...">
+   <div class="card-body">
+     <h5 class="card-title"></h5>
+     <p class="card-text">{{post|hashtag_link|safe}}</p>
+      <!-- hashtag_link(post)와 동일 -->
+     	ㄴ<!-- safe옵션: <a></a>문자를 실제링크로 바꿔준다. -->
+       
+     <a href="#" class="btn btn-primary">Go somewhere</a>
+   </div>
+</div>
 ```
 
