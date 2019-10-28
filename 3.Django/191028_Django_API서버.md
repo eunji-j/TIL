@@ -1,10 +1,12 @@
-# 191028_Django_REST framework
+# 191028_Django_API서버
 
-> api서버를 만들어보자 -> **json**형태의 데이터로만 사용자에게 응답 (**html  X**)
+> 뮤직리스트 **api서버**를 만들어보자 -> **json**형태의 데이터로만 사용자에게 응답 (**html  X**)
 >
-> 데이터를 관리하는 **서버(백엔드)**만 다룬다.
+> 데이터를 관리하는 **서버(백엔드)**만 다뤄본다. 
+>
+> 이 api서버를 통해 프론트엔드 개발자에게 보여주고 어떻게 개발할지 소통할 수 있다.
 
-## 새로 배운 것
+<br>
 
 ## 1)  django REST framework
 
@@ -12,13 +14,11 @@
 
 ### 1. 환경설정
 
-프레임워크 설치
-
 ```python
 pip install djangorestframework
 ```
 
-api > `settings.py`
+api > `settings.py` > INSTALLED_APPS
 
 ```python
 'rest_framework',
@@ -65,19 +65,21 @@ admin.site.register(Comment)
 
 ### 3. json 데이터 불러오기
 
-> 데이터를 json형태로 변경해준다 -> `my_dumpdata.json` 파일 생성 (**복제**)
+데이터를 json형태로 변환해준다 -> `my_dumpdata.json` 파일 생성 (**복제**)
 
-```
+```bash
 python manage.py dumpdata --indent 2 musics > my_dumpdata.json
 ```
 
-> 데이터를 **불러와서 사용**한다. -> 모델링 다시 해줘야한다.
+데이터를 **불러와서 사용**한다. -> 모델링 다시 해줘야한다.
 
-```
+```bash
 python manage.py loaddata musics/my_dumpdata.json
 ```
 
-### 4.경로설정 (직렬화 작업)
+### 4. 경로설정 (직렬화 작업)
+
+>  뮤직리스트, 뮤직상세, 아티스트리스트, 아티스트상세, 댓글
 
 api > `urls.py` 에서 api 서버 경로를 구성한다. (기존의 html방식과 다르다.) ★
 
@@ -95,37 +97,67 @@ from . import views
 app_name = 'musics'
 
 urlpatterns = [
-    path('musics/', views.music_list, name='music_list'), # html이 아니기 때문에 name은 적지 않아도 된다.
+    # html이 아니기 때문에 name은 적지 않아도 된다.
+    path('musics/', views.music_list, name='music_list'),
     path('musics/<int:id>/', views.music_detail, name='music_detail'),
+    path('artists/', views.artist_list),
+    path('artists/<int:id>/', views.artist_detail),
+    path('musics/<int:id>/comments/', views.comment_create),
+    path('comments/<int:id>/', views.comment_detail)
 ]
 ```
 
-musics > `serializers.py` 파일 생성하고 공식사이트 튜토리얼 1에서 코드 복붙한다. ★
+musics > `serializers.py` 파일 생성하고 공식사이트 튜토리얼 1에서 필요한 코드 복붙한다. ★
 
-> **직렬화해서 데이터 관리**한다. ex) 가수1-노래1-댓글1, 가수1-노래1-댓글2, 가수1-노래1-댓글3 ...
+- **직렬화해서 데이터를 관리**한다. 	ex) 가수1-노래1-댓글1, 가수1-노래1-댓글2, 가수1-노래1-댓글3 ...
 
 ```python
 from rest_framework import serializers
-from .models import Music
+from .models import Music, Artist, Comment
+
+# ModelSerializer -> ModelForm과 구조가 유사하다.
 
 class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
         fields = ('id', 'title', 'artist_id',)
+
+# Artist 전체리스트 보여줄때
+class ArtistSerializer(serializers.ModelSerializer):
+    musics = MusicSerializer(source='music_set', many=True)
+    class Meta:
+        model = Artist
+        fields = ('id', 'name',)
+
+# Artist 세부리스트 보여줄때(컬럼 추가)
+class ArtistDetailSerializer(serializers.ModelSerializer):
+    # music_set = MusicSerializer(many=True)
+    # 이름을 바꾸고 싶을 때 source에 적어주면 된다.
+    musics = MusicSerializer(source='music_set', many=True)
+    musics_count = serializers.IntegerField(source='music_set.count')
+    class Meta:
+        model = Artist
+        fields = ('id', 'name', 'musics', 'musics_count',)
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('id', 'content', 'music_id',)
 ```
 
-musics > `views.py` 
+musics > `views.py` 요청에 따른 응답으로 데이터를 보내주는 함수를 작성한다. (이번에는 GET방식만 다룸.) ★
 
 ```python
-from django.shortcuts import render
-from .models import Music
-# 필요한 임포트
+from django.shortcuts import render, get_object_or_404
+from .models import Music, Artist, Comment
+# rest_framework
 from rest_framework.decorators import api_view
-from .serializers import MusicSerializer
+from .serializers import MusicSerializer, ArtistSerializer, ArtistDetailSerializer, CommentSerializer
 from rest_framework.response import Response
+# Create your views here.
 
 
-# Restframework 요청, 응답
+# rest_framework 요청, 응답
 @api_view(['GET'])
 def music_list(request):
     musics = Music.objects.all()
@@ -133,14 +165,64 @@ def music_list(request):
     serializer = MusicSerializer(musics, many=True) # 데이터 여러개
     return Response(serializer.data)
 
+    # json형태로 바꿔주는 다른방법
+    # from django.http import JsonResponse
+    # json_musics = {}
+    # for music in musics:
+    #     json_musics[music.id] = music.title
+    # return JsonResponse(json_musics)
+
 @api_view(['GET'])
 def music_detail(request, id):
     music = get_object_or_404(Music, id=id)
     serializer = MusicSerializer(music) # 데이터 한개
     return Response(serializer.data)
+
+@api_view(['GET'])
+def artist_list(request):
+    artists = Artist.objects.all()
+    serializer = ArtistSerializer(artists, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def artist_detail(request, id):
+    artist = get_object_or_404(Artist, id=id)
+    serializer = ArtistDetailSerializer(artist)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def comment_create(request, id):
+    # request.POST가 아닌 request.data가 쓰인다.
+    serializer = CommentSerializer(data=request.data)
+    # 에러 체크(값이 없거나 빠졌을 때 알려준다.)
+    if serializer.is_valid(raise_exception=True):
+        # commit과 동일한 기능
+        serializer.save(music_id=id)
+    return Response(serializer.data)
+
+
+# GET, POST, PUT/PATCH, DELETE 모두 사용가능하다.
+# Read, Create, Update, Delete로 대응된다.
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def comment_detail(request, id):
+    comment = get_object_or_404(Comment, id=id)
+    if request.method == 'GET':
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = CommentSerializer(data=request.data, instance=comment)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            # 업데이트된 결과를 반환(일반적)
+            return Response(serializer.data)
+            # 업데이트 메시지를 반환
+            # return Response({'message':'업데이트!!!'})
+    else:
+        comment.delete()
+        return Response({'message': '삭제되었습니다!'})
+
 ```
-
-
 
 **postman google Chrome** > 확장프로그램 추가
 
@@ -151,194 +233,53 @@ GET -> 127.0.0.1:8000/api/v1/musics/  # 뮤직리스트
 GET -> 127.0.0.1:8000/api/v1/musics/1  # 뮤직상세
 ```
 
+<br>
 
-
-## drf-yasg
+## 2) drf-yasg
 
 [깃허브사이트](https://github.com/axnsan12/drf-yasg)
 
-### 1.환경설정
+### 1. 환경설정
 
 ```
 pip install drf-yasg
 ```
 
+api > `settings.py` > INSTALLED_APPS
 
-
-```
+```python
 'drf_yasg',
 ```
 
-
-
-
-
-insta > `settings.py` 에서 **환경설정**
+api > `urls.py` 에서 drf_yasg 코드 복붙한다.
 
 ```python
-INSTALLED_APPS = [
-    # allauth 세팅(맨위)
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    ...
-    # allauth 세팅
-    'django.contrib.sites',
-    # 필요한 제공자 추가
-    'allauth.socialaccount.providers.kakao',
+from django.contrib import admin
+from django.urls import path, include
+# drf_yasg
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+# drf_yasg
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Music API",
+      default_version='v1',
+    # 나머지는 있어도 없어도 상관없는 설명
+    #   description="Test description",
+    #   terms_of_service="https://www.google.com/policies/terms/",
+    #   contact=openapi.Contact(email="contact@snippets.local"),
+    #   license=openapi.License(name="BSD License"),
+   ),
+)
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # api서버경로구성 -> 버전명시가 일반적(선택사항)
+    path('api/v1/', include('musics.urls')),
+    # drf_yasg
+    # 다른 스타일의 페이지 2개 -> 프론트엔드 개발자에게 보여주고 어떻게 개발할지 소통한다.
+    path('redocs/', schema_view.with_ui('redoc')),
+    path('swagger/', schema_view.with_ui('swagger')),
 ]
-
-...
-
-# allauth 세팅
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
-SITE_ID = 1
 ```
-
-2. insta > `urls.py` 에서 **환경설정**
-
-```python
-# allauth 세팅(아래에 위치)
-path('accounts/', include('allauth.urls')),
-```
-
-3. `python manage.py migrate`
-
-4. 카카오개발자 > 로그인 > 앱 만들기 > 내애플리케이션설정
-
-```html
--사용자관리 > 상태 ON > 로그인 Redirect URI에 다음 주소 추가
-	http://127.0.0.1:8000/oauth
-	https://127.0.0.1:8000/oauth
-	http://127.0.0.1:8000/accounts/kakao/login/callback/
--고급 > Client Secret 상태 ON: 키값받기
-```
-
-5. admin페이지 > **Add social application** 생성
-
-```html
--Provider: 설정
--Name: 설정
--Client id: 일반 > RestAPI Key 입력
--Secret key: 고급 > Client Secreat Key 입력
--Site: 아무거나 하나 추가
-```
-
-6. accounts > `form.html` 에서 **버튼과 경로 추가**
-
-```html
-<!-- 추가 -->
-{% load socialaccount %}
-
-<!-- 버튼과 경로 추가 -->
-<a class="btn btn-warning" href="{% provider_login_url 'kakao'  %}">카카오로그인</a>
-```
-
-<br>
-
-### 3) Django Bootstrap Pagination (페이지 넘기는 기능)
-
-> [공식사이트](https://pypi.org/project/django-bootstrap-pagination/)
-
-pagination 설치
-
-```
-pip install django-bootstrap-pagination
-```
-
-insta > settings.py
-
-```
-INSTALLED_APPS = (
-	'bootstrap_pagination',
-)
-```
-
-posts > views.py
-
-```python
-def index(request):
-    posts = Post.objects.all()
-    # 한페이지에 몇개를 보여줄지
-    paginator = Paginator(posts, 5) 
-
-    page = request.GET.get('page')
-    posts = paginator.get_page(page)
-
-    comment_form = CommentForm()
-    context = {
-        'posts': posts,
-        'comment_form': comment_form,
-    }
-    return render(request, 'posts/index.html', context)
-```
-
-posts > index.html 에서 다음 코드 작성
-
-```
-{% load bootstrap_pagination %}
-```
-
-```
-{% bootstrap_paginate page_obj %}
-```
-
-<br>
-
-### 4) Heroku (배포)
-
-> [공식사이트](https://www.heroku.com/)
-
-#### 1. 서버 설정
-
-1. insta > settings.py
-
-```python
-import django_heroku
-django_heroku.settings(locals())
-```
-
-2. heroku 설치
-
-```
-pip install django-heroku
-```
-
-3. 최상위 > **Procfile** 파일 생성 후
-
-```
-web: gunicorn insta.wsgi --log-file -
-```
-
-4. gunicorn 설치
-
-```
-pip install gunicorn
-```
-
-5. 최상위 > **rumtime.txt** 파일 생성
-
-```
-python-3.7.4
-```
-
-6. 어떤 버전을 사용하는지 명시해주는 파일 생성
-
-```
-pip freeze > requirements.txt
-```
-
-#### 2. GitHub repository 생성 후 푸시
-
-#### 3.Heroku 사이트
-
-1. Deployment method > **GitHub 연결**
-2. 생성한 **repository** 등록
-3. `Automatic deploys` 버튼 클릭 > `Deploy Branch` 버튼 클릭하여 설치
