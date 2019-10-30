@@ -1,30 +1,24 @@
-## 191029_Web_JavaScript
+## 191029_JavaScript_intro(1)
+
+> javascript (ES6버전)
+
+- 프론트, 백엔드 모두 가능.
+- 기본적인 연산도 가능하다.
+- 컴퓨터(프로그램) 조작을 할 수 없다.(반쪽짜리언어) -> node.js 가 나오게 됨. -> javascript 수요가 폭발적으로 증가. 
+
+#### 1. DOM  문서 조작(많이 하게 될것)
+
+​	ex. window.document.title = 'javascript'
+
+#### 2. BOM 브라우저 조작
+
+​	ex. window.print(), window.open('https://naver.com')
 
 <br>
 
-javascript (ES6버전)
+- Chrome -> `F12` -> Console에서 조작이 가능함.
 
-
-
-DOM  문서 조작(많이 하게 될것)
-
-ex. window.document.title = 'javascript'
-
-BOM 브라우저 조작
-
->ex. window.print(), window.open('https://naver.com')
-
-- 프론트, 백엔드 모두 가능.
-
-- 기본적인 연산도 가능하다.
-
-- 컴퓨터(프로그램) 조작을 할 수 없다.(반쪽짜리언어) -> node.js 가 나오게 됨. -> javascript 수요가 폭발적으로 증가. 
-
-
-
-Chrome -> `F12` -> Console에서 조작이 가능함.
-
-### Dom 조작
+## 1) Dom 조작
 
 > intro > main.js
 
@@ -120,7 +114,7 @@ console.log(num1 === num2)
 
 <br>
 
-### node js
+## 2) node js
 
 > https://nodejs.org/ko/ -> 12.13.0 LTS 다운로드
 >
@@ -131,8 +125,6 @@ $ node 파일명
 ```
 
 - VisualStudioCode 확장프로그램 **ESLint, Beautify** 설치
-
-
 
 ### 0. 변수
 
