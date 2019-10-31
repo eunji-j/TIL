@@ -359,9 +359,13 @@ console.log(user) // { name: 'tak', location: 'dj' }
 ```html
 <body>
     <div id="map" style="width:100%;height:400px;"></div>
+    <!-- 버튼을 클릭함녀 세점의 위도, 경도를 콘솔에 출력 -->
+    <button id="center">모여라</button>
     <!-- kakaodevelopers > 내 애플리케이션 > 설정 > 일반 > javascript키 붙여넣기 -->
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=7a38d3462aa48ebfd840240a927eed3b"></script>
-    
+    <script src="./circumcenter.js"></script>
+
+
     <!-- api map kakao > wizard 붙여넣기 -->
     <script>
       // es6으로 약간 커스터마이징
@@ -372,9 +376,9 @@ console.log(user) // { name: 'tak', location: 'dj' }
       }
       
       const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
       // 전체 마커를 저장하는 배열
       const markers = []
+      let centerMarker
 
       // 위도와 경도 정보
       kakao.maps.event.addListener(map, 'click', function(e) {
@@ -388,15 +392,48 @@ console.log(user) // { name: 'tak', location: 'dj' }
           map, // map: map 생략
           position, 
         })
-        if (markers.length == 3) {
-          markers.shift().setMap(null)
-        }
         markers.push(newMarker)
         newMarker.setMap(map)
-        console.log(markers)
+
+        if (markers.length > 3) {
+          // 마커 제거
+          markers.shift().setMap(null) 
+        }
+        // console.log(markers)
       }
+
+      // 1. '모여라' 버튼을 찾는다.
+      const btn = document.querySelector('#center')
+      // 2. 버튼을 클릭했을 때
+      btn.addEventListener('click', e=>{
+        // 3. markers에 저장된 정보를 콘솔에 출력한다.
+        if (markers.length === 3) {
+          // 외심을 구한다.
+          const center = circumcenter([
+            [markers[0].getPosition().Ha, markers[0].getPosition().Ga],
+            [markers[1].getPosition().Ha, markers[1].getPosition().Ga],
+            [markers[2].getPosition().Ha, markers[2].getPosition().Ga]
+          ])
+          // console.log(center)
+          const position = new kakao.maps.LatLng(center[0], center[1])
+          console.log(position)
+
+          // 기존의 마커가 있다면 지우고 새로운 마커 추가
+          if (centerMarker) {
+            centerMarker.setMap(null)
+          }
+          centerMarker = new kakao.maps.Marker({
+            map,
+            position
+          })
+        }else {
+          console.log('마커를 더 찍어주세요')
+        }
+      })
+
     </script>
 </body>
 ```
 
-- `circumcenter` => 세 좌표의 외심 구하는 라이브러리
+- **circumcenter npm** => 세 좌표의 외심 구하는 라이브러리 => `circumcenter.js`에  복붙
+
