@@ -129,6 +129,8 @@ axios
 > views.py
 
 ```python
+from django.http import JsonResponse
+
 def like(request, id):
     if request.is_ajax():
         post = get_object_or_404(Post, id=id)
@@ -141,9 +143,10 @@ def like(request, id):
             post.like_users.add(user)
             is_like = True
 
+        # context에 담아서 넘겨준다.
         context = {
-            'is_like': is_like, 
-            'likes_cnt': post.like_users.all().count()
+            'is_like': is_like, # 좋아요여부
+            'likes_cnt': post.like_users.all().count() # 좋아요수
             }
         # Json 구조로 반환
         return JsonResponse(context)
