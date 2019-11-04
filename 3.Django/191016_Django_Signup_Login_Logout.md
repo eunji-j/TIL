@@ -8,9 +8,11 @@
 
 
 
-#### templates > app마다 폴더 생성
+#### 앱 > templates > app 폴더 > .html 생성
 
-> 동일한 이름의 html파일 충돌을 막기위해서 구분해준다. 경로도 변경해줘야 한다.(앞에 appname/ 붙여주기)
+> 동일한 이름의 html파일 충돌을 막기위해서 앱마다 구분해준다.(경로앞에 appname/ )
+>
+> ex) return render(request, 'questions/form.html', context)
 
 <br>
 
@@ -18,9 +20,8 @@
 
 ### 1) @require_POST
 
-> 함수조건에 맞지않으면 아래코드가 실행되지 않고 대신에 에러페이지를 보내준다.
+> 함수조건에 맞지않으면 아래코드가 실행되지 않고 대신에 405에러페이지를 보내준다. (POST/GET 분기하지않아도된다.)
 >
-> (POST/GET 분기하지않아도된다.)
 
 questions > `views.py` 
 
@@ -48,7 +49,7 @@ def choice_delete(request, question_id, choice_id):
 
 ### 2) @login_required
 
-> 로그인상태에서만 글쓰기 기능이 가능하다.(자동으로 로그인페이지로 이동)
+> 로그인상태에서만 글쓰기 기능이 가능하다. (자동으로 로그인페이지로 이동)
 
 ```python
 from django.contrib.auth.decorators import login_required
@@ -129,7 +130,7 @@ total_2 = choices.filter(pick=2).count()
 
 ## Signup /  Login / Logout 기능 ★
 
-> `Session`을 데이터베이스에 저장하는 과정 (Create로직과 동일이다.)
+> `Session`을 데이터베이스에 저장하는 과정 (Create로직과 동일하다.)
 >
 > Session이 만료되면 로그아웃 된다.
 

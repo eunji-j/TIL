@@ -34,9 +34,12 @@ templates 폴더 (이름중요) 안에 최상위 파일만든후 상속받은 �
 
 DB: 영구저장용
 
-```
-$ python makemigrations DB(sql)에 적용하기 위한 변환 명령어
-$ python migrate 표 만들어주는 명령어
+```bash
+$ python makemigrations 
+# DB(sql)에 적용하기 위한 변환 명령어
+# 등록된 app에 변경된 내용이 있는 경우 migration파일이 생성된다.
+$ python migrate 
+# 테이블 구조(표) 만들어주는 명령어
 ```
 
 <br>
