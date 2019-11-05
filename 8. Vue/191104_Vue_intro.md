@@ -1,510 +1,284 @@
-## 191029_JavaScript_intro(1)
+## 191104_Vue_intro
 
-> javascript (ES6버전)
+#### SPA (Single Page Application) 
 
-- 프론트, 백엔드 모두 가능.
-- 기본적인 연산도 가능하다.
-- 컴퓨터(프로그램) 조작을 할 수 없다.(반쪽짜리언어) -> node.js 가 나오게 됨. -> javascript 수요가 폭발적으로 증가. 
+> 정교한 단일 페이지 응용프로그램
 
-#### 1. DOM  문서 조작(많이 하게 될것)
+- 한페이지안에서 데이터가 일부분씩 바뀐다.
 
-​	ex. window.document.title = 'javascript'
+- 사용자가 좀더 수월하게 접근할 수 있다.
 
-#### 2. BOM 브라우저 조작
+angular > react > vue
 
-​	ex. window.print(), window.open('https://naver.com')
+#### Vue 디자인패턴 MVVM
+
+- `Model`: 데이터 처리(데이터베이스와 통신)
+- `View`: 사용자의 눈에 보이는 인터페이스
+- `ViewModel`: View와는 Binding, Command로 연결하고, Model과는 데이터를 주고받는 역할
 
 <br>
 
-- Chrome -> `F12` -> Console에서 조작이 가능함.
+## Intro
 
-## 1) Dom 조작
+#### 환경설정 [공식사이트](https://kr.vuejs.org/v2/guide/index.html)
 
-> intro > main.js
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+```
 
-```js
-alert('Hello world!!!')
+#### 확장프로그램
 
-// 여기는 주석입니다.
-/*
-여기서부터
-여기까지는
-주석입니다.
-*/
+vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정: 파일 URL에 대한 액세스 **허용**
 
+> 개발자옵션에서 사용할 수 있다.
 
-document.write('<h1>hello world</h1>')
+![1572836008623](assets/1572836008623.png)
 
-// h1태그를 가져와!
-document.querySelector('h1')
-
-// 가져온 태그의 내부 text를 바꿔줘
-document.querySelector('h1').innerText = "Bye"
-
-// 선언한 변수를 콘솔창에서 조작가능하다.
-var name = "eunji"
-
-// print()와 동일
-console.log(name)
+![1572836146905](assets/1572836146905.png)
 
 
-// var타입(-> 잘 이용하지않을 것)
-var b = 30
-// var 특성상 b가 0으로 바뀌게 된다.
-for (var b = 0; b < 10; b++) {
-        console.log(b)
-        // 0 1 2 ... 10
-    }
-console.log('!!!!!!!!!!!!!!!')
-console.log(b)
 
+### 0. vue / javascript
 
-// let타입(재할당 가능)
-let name = 'eunji'
-document.write(name)
+> input 태그에 글자가 입력됨과 동시에 p태그에서 출력시키기
 
-name = 'eunji-j'
-document.write(name)
+```html
+<body>
+  <!-- View -->
+  
+  <!-- 1.vue -->
+  <div id="app">
+    <!-- v-model: input데이터를 실시간으로 해당 변수안에 반영한다. -->
+    <input id="vue-input" type="text" v-model="msg">
+    <p id="vue-p">{{msg}}</p>
+  </div>
+    
+  <!-- 2.javascript -->
+  <input id="js-input" type="text">
+  <p id="js-p"></p>
 
+    
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // ViewModel -> 변경되면 자동으로 View도 변경된다.
 
-// const타입(상수로 사용됨. 재할당 불가능 -> 주로 이용)
-const loca = 'GJ'
-document.write(loca)
-// loca = 'seoul'
-// document.write(loca)
-
-
-// 문자열 합치기
-const first_name = 'eunji'
-const last_name = 'jeong'
-
-const full_name = first_name + last_name
-
-document.write('<h1>'+full_name+'</h1>')
-document.write(`<h1>${full_name}</h1>`)
-console.log(`<h1>${full_name}</h1>`)
-
-
-// 데이터 입력받기
-const userName = prompt("hello who are you???")
-let message = ``
-document.write(message)
-
-
-// if문
-if (userName === 'eunji') {
-    message = `<h1>admin page</h1>`
-}else if (userName === 'happy') {
-    message = `<h1>happy coding</h1>`
-}else {
-    message = `<h1>hello! ${userName}</h1>`
-}
-document.write(message)
-
-
-// 타입비교
-const num1 = 0
-const num2 = "0"
-
-// 느슨한 같음(값을 비교)
-console.log(num1 == num2)
-// 엄격한 같음(타입까지 비교)
-console.log(num1 === num2)
+    // 1.vue
+    const app = new Vue({
+      // 해당 element 내부에서만 참조가 가능하다.(다른곳은 불가능)
+      el: '#app',
+      // object생성
+      data: {
+        msg: '',
+      }
+    })
+    // 2.javascript
+    const inputText = document.querySelector('#js-input')
+    inputText.addEventListener('keyup', e=>{
+      const text = document.querySelector('#js-p')
+      text.innerText = inputText.value
+    })
+  </script>
+</body>
 ```
 
 <br>
 
-## 2) node js
+### 1. vue 인스턴스
 
-> https://nodejs.org/ko/ -> 12.13.0 LTS 다운로드
->
-> bash에서 javascript 사용해보자
+> 함수 사용해서 숫자 증가, 감소시켜보기 
 
-```bash
-$ node 파일명
+##### 기본구조
+
+1. `data:{}` 데이터 저장
+
+2. `methods:{ 함수정의 }` 데이터 수정, 불러오기
+
+```html
+<body>
+    <div id="app">
+      {{message}} - {{count}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        // 데이터 저장
+        data: {
+          // app.변수명으로 접근
+          message: 'hello vue',
+          count: 0,
+        },
+        // 데이터 수정, 불러오기
+        methods: {
+          // 1.function keyword(주로 사용할 것)
+          plus: function() {
+            // console.log(this) 호출하고 있는 Vue 인스턴스를 가리킨다.
+            this.count++
+          },
+          // 2.arrow function(원하는대로 찾기 힘들다.)
+          //plus2: ()=>{
+          //  console.log(this) 최상위 브라우저 전체(Window)를 가리킨다.
+          //}
+          minus(){ // minus: function minus(){} 함수와 이름이 같으면 생략가능하다.
+            this.count--
+          }
+        }
+      })
+    </script>
+</body>
 ```
 
-- VisualStudioCode 확장프로그램 **ESLint, Beautify** 설치
+(참고) app에 들어있는 속성에 접근할 때는  $를 붙여야 한다.
 
-### 0. 변수
+![1572842581949](assets/1572842581949.png)
 
-> 00_variable.js
+<br>
 
-```js
-// let타입은 같은 이름의 변수를 한번만 선언가능하다.(할당은 여러번가능)
-let x = 1
-// let x = 2 불가능
-x = 3 // 가능
-console.log(x)
+### 2. 디렉티브
 
+> 배열기반 리스트 렌더링 -> Todo 리스트 만들기
 
-// let타입은 Block Scope 블록 유효범위
-let x = 1
+![1572852708806](assets/1572852708806.png)
 
-if (x === 1) {
-    let x = 2
-    console.log(x) // 2
-}
-console.log(x) // 1
+#### v-for / v-if / v-on / v-bind / v-model
 
-
-// let은 초기화 안해도 가능, const는 초기화 해야한다.
-let x
-const y = 9
-// y = 10 불가능
-
-if (y === 9) {
-    let y = 20
-    console.log(y) // 20
-}
-console.log(y) // 9
-
-
-// def varTest(): 동일
-function  varTest() {
-    var x = 1
-    if (true) {
-        var x = 2
-        console.log(x) // 2
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
     }
-    console.log(x) //2
-}
-varTest()
-console.log(x) // 오류
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Todo 리스트 만들기 -->
+    
+    <!-- v-model: input태그만 양방향바인딩(값변경)이 가능하다. -->
+    <input type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
+    <button v-on:click="addTodo">+</button>
+    <button v-on:click="clearCompleted">완료항목 삭제</button>
+
+    <!-- 1.completed가 true인 항목에 '완료'표시하기 -->
+    <!-- <li v-for="todo in todos" v-if="!todo.completed" v-on:click="check(todo)">
+      {{todo.title}}
+    </li>
+    <li v-else v-on:click="check(todo)">
+      {{todo.title}} [완료!!]
+    </li> -->
+
+    <!-- 2.style태그를 이용하여 완료된항목에 적용하기 -->
+    <li v-for="todo in todos" v-bind:class="{completed: todo.completed}">
+      <input type="checkbox" v-model="todo.completed">
+      {{todo.title}}
+    </li>
 
 
-// var : 선언, 할당 => 자유 / 함수 스코프
-// let : 할당 => 자유 / 선언 => 한번만 / 블록 스코프
-// const : 할당, 선언 => 한번만 / 블록 스코프
-
-
-let dog
-let variableName
-
-let dogs = []
-
-function getName() {
-}
-
-// event
-const onClick = () => {}
-
-let isValid = false
-
-// class(대문자시작)
-class User {
-    constructor(value) {
-        this.name = value.name
-    }
-}
-
-// 완전한 상수
-const API_KEY = "asdff:123456123"
-
-const a = 13
-const b = -5
-const c = 3.14
-const d = 2.9e8
-const e = Infinity // 양수 무한대
-const f = -Infinity
-const g = NaN // Not a Number의미
-console.log(typeof e)
-console.log(Math.sqrt(-2)) // NaN
-
-const sentence1 = 'hello\n'
-const sentence2 = "hello"
-const sentence3 = `helloworld${sentence2}`
-console.log(sentence3+sentence1)
-
-// true, false 소문자
-const isValid = true // false
-
-// null / undefined
-let first_name
-console.log(first_name) // undefined(할당이 되지 않을 때)
-console.log(typeof first_name) //undefined
-
-let last_name = null
-console.log(last_name) // null(빈값)
-console.log(typeof last_name) // object
-
-console.log(null == undefined) // true
-console.log(null === undefined) // false
-console.log(null + 1) // 1
-console.log(undefined + 1) // NaN
+    <!-- (참고만) 해당태그에 바로 스타일 지정하는 법 -->
+    <!-- <div v-bind:style="{ color: color, fontSize: fontSize + 'px' }">
+      test
+    </div> -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        // color: 'red',
+        // fontSize: 30,
+        newTodo: '',
+        todos: [
+          {
+            title: '점심먹기',
+            completed: true,
+          },
+          {
+            title: '파이썬공부하기',
+            completed: false,
+          },
+          {
+            title: '뷰공부하기',
+            completed: true,
+          },
+          {
+            title: '낮잠자기',
+            completed: false,
+          },
+        ],
+      },
+      methods: {
+        check: function(todo){
+          todo.completed = !todo.completed
+        },
+        addTodo() {
+          // console.log(this.newTodo)
+          this.todos.push({
+            title: this.newTodo,
+            completed: false,
+          })
+          this.newTodo = ''
+        },
+        clearCompleted() {
+          this.todos = this.todos.filter(todo=>{
+            return todo.completed === false
+          })
+        }
+      }
+    })
+  </script>
+</body>
 ```
 
 <br>
 
-### 1. 연산자
-
-> 01_operator.js
-
-```js
-// let a = 0
-
-// + - * /
-a = a + 3
-a += 3
-a++ 
-console.log(a) // 7
-
-
-console.log(3<2) // false
-console.log('a' < 'b') // true
-console.log */('가'<'나') // true
- 
-const a = 1
-const b = '1'
-console.log(a == b) // true
-console.log(a === b) // false
-console.log(a === Number(b)) // true
-
-// and
-console.log(true && false) // false
-// or
-console.log(true || false) // true
-// not 
-console.log(!true) // false
-
-// 삼항연산자
-const a = 10
-const result = a > 5 ? "5이상" : "5미만"
-console.log(result)
-```
-
-<br>
-
-### 2. 제어문
-
-> 02_control_of_flow.js
-
-```js
-// node에서 사용자 입력받는 방법(복잡하다.)
-// const readline = require('readline')
-// const userName = readline.createInterface(
-//     {
-//         input: process.stdin,
-//         output: process.stdout
-//     }
-// )
-
-// userName.question('이름을 입력하세요', (answer) => {
-//     console.log(answer)
-//     userName.close()
-// })
-
-
-// if문
-const userName = prompt('who are you?')
-let message = ''
-
-if (userName === 'eunji') {
-    message = 'hi admin'
-} else if (userName === 'happy') {
-    message = 'happy coding'
-} else {
-    message = `hello ${userName}`
-}
-console.log(message)
-
-
-// switch문
-const userName = prompt('who are you?')
-let message = ''
-
-switch(userName) {
-    case 'admin': {
-        message = 'hi admin'
-        break
-    }
-    case 'eunji': {
-        message = 'welcome'
-        break
-    }
-    // 모든 case문 다 돌고 난후 실행된다.
-    default: {
-        message = `hi ${userName}`
-    }
-}
-console.log(message)
-
-
-// while문
-let i = 0
-
-while (i < 5) {
-    console.log(i)
-    i++
-}
-
-
-// for (초기화 ; 값 비교 ; 값증가) {}
-for (let a = 0; a < 5; a++) {
-    console.log(a)
-}
-
-
-// 배열 반복문
-const numbers = [0, 1, 2, 3, 4, 5]
-for (let num of numbers) {
-    console.log(num)
-}
-```
-
-### 3. 함수
-
-> 03_function.js
-
-```js
-// 1. 함수 선언식
-function add(num1, num2) {
-    return num1 + num2
-}
-console.log(add(2, 10))
-
-// 2. 함수 표현식
-const sub = function(num1, num2) {
-    return num1 - num2
-}
-console.log(sub(10, 2))
-
-// 함수 표현식
-const ssafy1 = function(name) {
-    console.log(`hello ${name}`)
-}
-ssafy1('eunji')
-
-// 3. 화살표 함수, arrow function
-const ssafy2 = (name) => {
-    console.log(`hello ${name}`)
-}
-ssafy2('eunji-j')
-
-// 화살표 함수 소괄호 생략, 단 매개변수가 하나일 때
-const ssafy3 = name => {
-    console.log(`hello ${name}`)
-}
-ssafy3('eunji')
-
-// 화살표 함수 중괄호 생략, 표현식 하나일 때
-const ssafy4 = name => `hello ${name}`
-console.log(ssafy4('eunji-j'))
-
-
-// 예제
-let square = function(num) {
-    return num ** 2
-}
-square = (num) => {
-    return num ** 2
-}
-square = num => {
-    return num ** 2
-}
-square = num => num ** 2
-
-
-let noArgs = () => 'no args'
-noArgs = _ => 'no args'
-console.log(noArgs())
-
-
-// 딕셔너리
-const a = {}
-console.log(typeof a) // object(json형태)
-
-let returnObject = () => ({key: 'value'})
-
-// 기본값 설정
-const hello = (name="noName") => `hello ${name}`
-console.log(hello('change'))
-
-
-// 기명함수
-const hello = function (name) {
-    console.log(name)
-}
-hello('change')
-
-// 익명함수(즉시실행함수)
-(function (name) {
-    console.log(name)
-})('change')
-```
-
-<br>
-
-### 4. 배열
-
-> 04_array.js    [array 참고](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array)
-
-```js
-const numbers = [1,2,3,4]
-
-console.log(numbers[0]) // 1
-console.log(numbers.length) // 4
-
-console.log(numbers.reverse()) // 원본을 바꿔줌
-console.log(numbers)
-
-// 맨마지막요소에 접근
-numbers.push(5)
-console.log(numbers)
-
-numbers.pop()
-console.log(numbers)
-
-// 맨처음요소에 접근
-numbers.unshift(0)
-console.log(numbers)
-
-numbers.shift()
-console.log(numbers)
-
-
-console.log(numbers.includes(100)) // false
-console.log(numbers.indexOf(100)) // 1(없으면 -1)
-console.log(numbers.join()) // 4,3,2,1
-console.log(numbers) // [ 4, 3, 2, 1 ]
-```
-
-<br>
-
-### 6. object 생성
-
-> 05_object.js
-
-```js
-const me = {
-    name: 'change',
-    'phone number': '123123123', // 띄어쓰기가 있으면 ''로 묶어준다.
-    product: {
-        phone: 'iphone',
-        notebook: 'mac',
-    }
-}
-console.log(me['name']) // change
-console.log(me.product.notebook) // mac
-
-
-let books = ['javascript', 'python']
-let comics = {
-    DC: ['Aquaman', 'SuperMan'],
-    Marvle: ['Avengers', 'IronMan'],
-}
-
-let bookStore = {
-    books,
-    comics
-}
-console.log(bookStore)
-
-// JSON
-console.log(me)
-const jsonData = JSON.stringify(me)
-console.log(jsonData)
-
-const parseData = JSON.parse(jsonData)
-console.log(parseData)
+### 3. 예제_강아지, 고양이 랜덤사진 띄우기
+
+```html
+<body>
+  <div id="app">
+    <button v-on:click="getDogImage">멍멍</button>
+    <button v-on:click="getCatImage">야옹</button>
+    <img v-bind:src="image" alt="">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- axios cdn -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        image: ''
+      },
+      methods: {
+        getDogImage: function(){
+          const DOG_URL = 'https://dog.ceo/api/breeds/image/random'
+          axios.get(DOG_URL)
+            .then((response)=>{
+              // console.log(response)
+              this.image = response.data.message
+            })
+            .catch((error)=>{
+              console.log(error)
+            })
+        },
+        getCatImage: function(){
+          const CAT_URL = 'https://api.thecatapi.com/v1/images/search'
+          axios.get(CAT_URL)
+            .then((response)=>{
+              // console.log(response)
+              this.image = response.data[0].url
+            })
+            .catch((error)=>{
+              console.log(error)
+            })
+        }
+      }
+    })
+  </script>
+</body>
 ```
