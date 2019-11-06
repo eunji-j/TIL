@@ -1,4 +1,4 @@
-## 191106_Vue_Component
+## 191106_Vue_Vue-CLI
 
 ## 1. webpack (참고만)
 
@@ -35,7 +35,7 @@ module.exports = {
 
 <br>
 
-## 2. Vue-cli
+## 2. Vue-CLI
 
 ```bash
 npm install -g @vue/cli # 설치
@@ -132,4 +132,3 @@ export default {
 }
 </script>
 ```
-
