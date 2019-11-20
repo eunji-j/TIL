@@ -2,7 +2,7 @@
 
 ## 로그인 과정 (vue + django)
 
-### JWT (Json Web Token) 
+### [JWT](https://jwt.io/) (Json Web Token) 
 
 > vue에서는 jwt가 django의 세션ID와 동일한 기능을 한다.
 
