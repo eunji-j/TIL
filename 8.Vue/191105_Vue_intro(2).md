@@ -1,12 +1,14 @@
 ## 191105_Vue_intro(2)
 
-[공식사이트](https://kr.vuejs.org/)
+[공식문서](https://kr.vuejs.org/)
 
 ### 1. method VS computed 속성
 
 ### 2. Local Storage vs Session Storage
 
-### 3. watch / mounted 속성
+### 3. computed VS watch 속성 [참고](https://ui.toast.com/weekly-pick/ko_20190307/) 
+
+### 4. Life Cycle [참고](https://wormwlrm.github.io/2018/12/29/Understanding-Vue-Lifecycle-hooks.html)
 
 ![1572942378879](assets/1572942378879.png)
 
@@ -35,7 +37,7 @@
       {{todo.title}} [완료!!]
     </li> -->
 
-    <!-- 2.style태그를 이용하여 완료된항목에 적용하기 -->
+    <!-- 2.class를 이용하여 완료된항목에 style 적용하기 -->
     <li v-for="todo in computedTodosByStatus" :class="{completed: todo.completed}" v-bind:key="todo.id">
       <input type="checkbox" v-model="todo.completed">
       {{todo.title}}
@@ -78,7 +80,7 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)) // 데이터를 JSON형태로 저장
       },
       fetch: function(){
-        // ||연산: 앞의 값이 없으면(null이면) '[]'를 반환
+        // ||연산: 앞의 값이 없으면(null이면) '[]'를 반환 (단축평가)
         return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') // js object형태로 반환
       },
     }
@@ -166,11 +168,12 @@
       // watch: 데이터 변화를 감지하여 자동으로 특정 로직을 수행한다.
       watch: {
         todos: {
+          // object 내부변화도 감지해야함 알려준다.(handler메서드도 재배치)
+          deep: true,
+            
           handler: function(todos){
             todoStorage.save(todos)
-          },
-          // object 내부변화도 적용한다.
-          deep: true
+          }
         }
       },
 
@@ -242,6 +245,7 @@
           this.todos = this.todos.filter(todo => {
             return todo.id !== todoID
           })
+            
         }
       }
     })

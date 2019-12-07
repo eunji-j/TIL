@@ -1,26 +1,32 @@
-## 191104_Vue_intro
+191104_Vue_intro
 
-#### SPA (Single Page Application) 
+#### 1. SPA (Single Page Application) 
 
 > 정교한 단일 페이지 응용프로그램
 
-- 한페이지안에서 데이터가 일부분씩 바뀐다.
+- 한페이지 안에서 데이터가 일부분씩 바뀐다.
 
 - 사용자가 좀더 수월하게 접근할 수 있다.
 
-angular > react > vue
+JavaScript의 유명한 프레임워크 3대장: angular > react > vue
 
-#### Vue 디자인패턴 MVVM
+#### 2. Vue 디자인패턴 - MVVM
 
 - `Model`: 데이터 처리(데이터베이스와 통신)
-- `View`: 사용자의 눈에 보이는 인터페이스
-- `ViewModel`: View와는 Binding, Command로 연결하고, Model과는 데이터를 주고받는 역할
+- `View`: 사용자에게 보여지는 UI
+- `ViewModel`: View와는 Command, Data Binding으로 연결하고, Model과는 데이터를 주고받는 역할
+
+장점: View는 Command패턴과 Data Binding을 사용하여 ViewModel과의 의존성을 없애고, View와 Model의 의존성도 없앴다.
+
+단점: ViewModel의 설계가 어렵다.
+
+![mvvm](assets\mvvm.PNG)
 
 <br>
 
 ## Intro
 
-#### 환경설정 [공식사이트](https://kr.vuejs.org/v2/guide/index.html)
+#### 환경설정(cdn) [공식문서](https://kr.vuejs.org/v2/guide/index.html)
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -38,7 +44,7 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
 
 
 
-### 0. vue / javascript
+### 0. vue / javascript 차이
 
 > input 태그에 글자가 입력됨과 동시에 p태그에서 출력시키기
 
@@ -47,6 +53,7 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
   <!-- View -->
   
   <!-- 1.vue -->
+  <!-- div로 감싸줘야 한다. -->
   <div id="app">
     <!-- v-model: input데이터를 실시간으로 해당 변수안에 반영한다. -->
     <input id="vue-input" type="text" v-model="msg">
@@ -57,7 +64,7 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
   <input id="js-input" type="text">
   <p id="js-p"></p>
 
-    
+
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     // ViewModel -> 변경되면 자동으로 View도 변경된다.
@@ -98,8 +105,10 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
     <div id="app">
       {{message}} - {{count}}
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+      // Vue 인스턴스 생성
       const app = new Vue({
         el: '#app',
         // 데이터 저장
@@ -115,8 +124,8 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
             // console.log(this) 호출하고 있는 Vue 인스턴스를 가리킨다.
             this.count++
           },
-          // 2.arrow function(원하는대로 찾기 힘들다.)
-          //plus2: ()=>{
+          // 2.arrow function(원하는대로 찾기 힘들다.사용X)
+          // plus2: ()=>{
           //  console.log(this) 최상위 브라우저 전체(Window)를 가리킨다.
           //}
           minus(){ // minus: function minus(){} 함수와 이름이 같으면 생략가능하다.
@@ -172,7 +181,7 @@ vue 개발을 도와주는 `Vue.js devtools` 확장프로그램 추가 > 설정:
       {{todo.title}} [완료!!]
     </li> -->
 
-    <!-- 2.style태그를 이용하여 완료된항목에 적용하기 -->
+    <!-- 2.class를 이용하여 완료된항목에 스타일 적용하기 -->
     <li v-for="todo in todos" v-bind:class="{completed: todo.completed}">
       <input type="checkbox" v-model="todo.completed">
       {{todo.title}}
