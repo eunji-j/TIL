@@ -2,7 +2,7 @@
 
 > 뮤직리스트 **api서버**를 만들어보자 -> **json**형태의 데이터로만 사용자에게 응답 (**html  X**)
 >
-> 데이터를 관리하는 **서버(백엔드)**만 다뤄본다. 
+> 데이터를 관리하는 `서버(백엔드)`만 다뤄본다. 
 >
 > 이 api서버를 통해 프론트엔드 개발자에게 보여주고 어떻게 개발할지 소통할 수 있다.
 
@@ -77,18 +77,18 @@ python manage.py dumpdata --indent 2 musics > my_dumpdata.json
 python manage.py loaddata musics/my_dumpdata.json
 ```
 
-### 4. 경로설정 (직렬화 작업)
+### 4. 경로설정 ★
 
 >  뮤직리스트, 뮤직상세, 아티스트리스트, 아티스트상세, 댓글
 
-api > `urls.py` 에서 api 서버 경로를 구성한다. (기존의 html방식과 다르다.) ★
+api > `urls.py` 에서 api 서버 경로를 구성한다. (기존의 html방식과 다르다.)
 
 ```python
 # api서버경로구성 -> 버전명시가 일반적(선택사항)
 path('api/v1/', include('musics.urls')),
 ```
 
-musics > `urls.py` 에서 **뮤직리스트와 뮤직상세** 2개의 경로를 설정한다.
+musics > `urls.py` 에서 각각의 경로를 설정한다.
 
 ```python
 from django.urls import path
@@ -107,7 +107,11 @@ urlpatterns = [
 ]
 ```
 
-musics > `serializers.py` 파일 생성하고 공식사이트 튜토리얼 1에서 필요한 코드 복붙한다. ★
+### 5. 직렬화 작업(serializer) ★
+
+> 목적: 다른 환경과 데이터를 주고받으려면 동일한 데이터 구조를 가져야 하기 때문이다.
+
+musics > `serializers.py` 파일 생성하고 공식사이트 튜토리얼 1에서 필요한 코드 복붙한다. 
 
 - **직렬화해서 데이터를 관리**한다. 	ex) 가수1-노래1-댓글1, 가수1-노래1-댓글2, 가수1-노래1-댓글3 ...
 
@@ -124,6 +128,7 @@ class MusicSerializer(serializers.ModelSerializer):
 
 # Artist 전체리스트 보여줄때
 class ArtistSerializer(serializers.ModelSerializer):
+    # 외래키 필드 설정
     musics = MusicSerializer(source='music_set', many=True)
     class Meta:
         model = Artist
@@ -134,6 +139,7 @@ class ArtistDetailSerializer(serializers.ModelSerializer):
     # music_set = MusicSerializer(many=True)
     # 이름을 바꾸고 싶을 때 source에 적어주면 된다.
     musics = MusicSerializer(source='music_set', many=True)
+    # 새로운 필드 생성
     musics_count = serializers.IntegerField(source='music_set.count')
     class Meta:
         model = Artist
@@ -145,7 +151,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ('id', 'content', 'music_id',)
 ```
 
-musics > `views.py` 요청에 따른 응답으로 데이터를 보내주는 함수를 작성한다. (이번에는 GET방식만 다룸.) ★
+musics > `views.py` 요청에 따른 응답으로 데이터를 보내주는 함수를 작성한다.
 
 ```python
 from django.shortcuts import render, get_object_or_404
@@ -194,7 +200,7 @@ def artist_detail(request, id):
 def comment_create(request, id):
     # request.POST가 아닌 request.data가 쓰인다.
     serializer = CommentSerializer(data=request.data)
-    # 에러 체크(값이 없거나 빠졌을 때 알려준다.)
+    # raise_exception=True: 에러 체크(값이 없거나 빠졌을 때 알려준다.)
     if serializer.is_valid(raise_exception=True):
         # commit과 동일한 기능
         serializer.save(music_id=id)
