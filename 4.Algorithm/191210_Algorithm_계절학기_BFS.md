@@ -95,10 +95,3 @@ visited = [0]*(N+1)
 bfs(V)
 ```
 
-<br>
-
-### ex02
-
-```python
-
-```
