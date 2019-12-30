@@ -200,7 +200,7 @@ def login(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect('questions:index')
+            return redirect(request.GET.get('next') or 'posts:index')
     else:
         # 인증을 하기위한 폼을 만든다.(ModelForm과 구조동일)
         form = AuthenticationForm()
